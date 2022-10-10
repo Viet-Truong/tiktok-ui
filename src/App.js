@@ -1,8 +1,37 @@
+import { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { publicRoutes } from "./routes";
+import { DefaultLayout } from "./Components/Layout";
+
 function App() {
     return (
-        <div className="App">
-            <h1>Tiktok</h1>
-        </div>
+        <Router>
+            <div className="App">
+                <Routes>
+                    {publicRoutes.map((route, key) => {
+                        // must use Fragment, use <> </> do not active/work
+                        let Layout = DefaultLayout;
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
+                            Layout = Fragment;
+                        }
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={key}
+                                path={route.path}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                }
+                            ></Route>
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
     );
 }
 
