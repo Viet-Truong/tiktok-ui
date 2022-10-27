@@ -11,7 +11,7 @@ function Menu({ children, items = [] }) {
     };
     return (
         <Tippy
-            visible
+            delay={[0, 700]}
             placement="bottom-end"
             interactive
             // cho select vao` ket qua
