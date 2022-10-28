@@ -25,6 +25,21 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: "Tiếng việt",
+        children: {
+            title: "Language",
+            data: [
+                {
+                    type: "Language",
+                    code: "en",
+                    title: "English",
+                },
+                {
+                    type: "Language",
+                    code: "vie",
+                    title: "Tiếng việt",
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -48,6 +63,10 @@ function Header() {
             setSearchResults([]);
         }, 0);
     }, []);
+
+    const handleMenuChange = (menuItem) => {
+        console.log(menuItem);
+    };
 
     return (
         <header className={cx("wrapper")}>
@@ -100,7 +119,8 @@ function Header() {
                 <div className={cx("actions")}>
                     <Button text>Upload</Button>
                     <Button primary>Log in</Button>
-                    <Menu items={MENU_ITEMS}>
+                    {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx("more-btn")}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
