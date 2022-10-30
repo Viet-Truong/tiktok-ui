@@ -17,6 +17,7 @@ import {
     faEllipsisVertical,
     faCircleQuestion,
     faKeyboard,
+    faCloudUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../../../Popper/Menu";
 
@@ -53,6 +54,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
+    const currentUser = true;
     // sau nay` se co ket qua tra ve`
     const [searchResults, setSearchResults] = useState([]);
     useEffect(() => {
@@ -116,14 +118,33 @@ function Header() {
                         </div>
                     </Tippy>
                 </>
+
                 <div className={cx("actions")}>
-                    <Button text>Upload</Button>
-                    <Button primary>Log in</Button>
+                    {currentUser ? (
+                        <>
+                            <button className={cx("")}>
+                                <FontAwesomeIcon icon={faCloudUpload} />
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary>Log in</Button>
+                        </>
+                    )}
                     {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
                     <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx("more-btn")}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                        {currentUser ? (
+                            <img
+                                className={cx("user-avatar")}
+                                src={images.matcuoi}
+                                alt="A"
+                            />
+                        ) : (
+                            <button className={cx("more-btn")}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
