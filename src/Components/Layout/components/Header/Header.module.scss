@@ -93,10 +93,49 @@
     }
 }
 
+// ACTIONS
+.actions{
+    display: flex;
+    align-items: center;
+}
+
+.action-btn{
+    background-color: transparent;
+    font-size: 2.2rem;
+    color: #161823;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+
 .more-btn {
     font-size: 2rem;
     margin-left: 28px;
     padding: 4px 8px;
     background: transparent;
     cursor: pointer;
+}
+
+.user-avatar{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 999px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.upload-btn{
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 36px;
+    border: 1px solid rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    span{
+        font-weight: 600;
+        margin-left: 10px;
+    }
 }

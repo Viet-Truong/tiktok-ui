@@ -40,7 +40,8 @@ function Menu({ children, items = [], onChange = defaultFN }) {
     };
     return (
         <Tippy
-            delay={[0, 700]}
+            delay={[0, 500]}
+            offset={[12, 8]}
             placement="bottom-end"
             interactive
             // cho select vao` ket qua

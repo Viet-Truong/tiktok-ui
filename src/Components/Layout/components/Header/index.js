@@ -1,5 +1,7 @@
 import classNames from "classnames/bind";
-import Tippy from "@tippyjs/react/headless";
+import TippyHeadless from "@tippyjs/react/headless";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import { useEffect, useState } from "react";
 
 import styles from "./Header.module.scss";
@@ -7,6 +9,8 @@ import images from "../../../../assets/images";
 import { Wrapper as PopperWrapper } from "../../../../Components/Popper";
 import AccountItem from "../../../AccountItem";
 import Button from "../../../../Components/Button";
+import Menu from "../../../Popper/Menu";
+import Image from "../../../Image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,9 +21,12 @@ import {
     faEllipsisVertical,
     faCircleQuestion,
     faKeyboard,
-    faCloudUpload,
+    faUser,
+    faCoins,
+    faGear,
+    faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
-import Menu from "../../../Popper/Menu";
+import { InboxIcon, MessageIcon, UploadIcon } from "../../../Icons";
 
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -70,12 +77,37 @@ function Header() {
         console.log(menuItem);
     };
 
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: "View profile",
+            to: "/profile",
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: "Get coins",
+            to: "/coin",
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: "Settings",
+            to: "/settings",
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: "Log out",
+            to: "/logout",
+            separate: true,
+        },
+    ];
+
     return (
         <header className={cx("wrapper")}>
             <div className={cx("inner")}>
                 <img src={images.logo} alt="top top" />
                 <>
-                    <Tippy
+                    <TippyHeadless
                         interactive
                         // visible de kta xem searchResults co phan tu k neu co thi moi hien
                         visible={searchResults.length > 0}
@@ -116,15 +148,34 @@ function Header() {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </button>
                         </div>
-                    </Tippy>
+                    </TippyHeadless>
                 </>
 
                 <div className={cx("actions")}>
                     {currentUser ? (
                         <>
-                            <button className={cx("")}>
-                                <FontAwesomeIcon icon={faCloudUpload} />
-                            </button>
+                            <div className={cx("upload-btn")}>
+                                <UploadIcon />
+                                <span>Tải lên</span>
+                            </div>
+                            <Tippy
+                                content="Message"
+                                placement="bottom"
+                                delay={[0, 100]}
+                            >
+                                <button className={cx("action-btn")}>
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy
+                                content="Inbox"
+                                placement="bottom"
+                                delay={[0, 100]}
+                            >
+                                <button className={cx("action-btn")}>
+                                    <InboxIcon />
+                                </button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
@@ -133,11 +184,14 @@ function Header() {
                         </>
                     )}
                     {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
+                    <Menu
+                        items={currentUser ? userMenu : MENU_ITEMS}
+                        onChange={handleMenuChange}
+                    >
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx("user-avatar")}
-                                src={images.matcuoi}
+                                src="https://cdn.discordapp.com/attachments/951411070055104572/1036634358615912519/matcuoi.jpg"
                                 alt="A"
                             />
                         ) : (
