@@ -50,9 +50,22 @@
     position: absolute;
     right: calc(var(--search-button-width) + 17px);
     top: 50%;
-    transform:  translateY(-50%);
+    transform: translateY(-50%);
     color:rgba(22, 24, 35, 0.34);
     cursor: pointer;
+}
+
+.loading {
+    animation: spinner .8s linear infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: translateY(-50%) rotate(0deg);
+    }
+    to{
+        transform: translateY(-50%) rotate(180deg);
+    }
 }
 
 .search-btn {
