@@ -58,10 +58,9 @@ function Search() {
         }
     };
 
-    const handleSubmit = () => {};
-
     return (
-        <>
+        // Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.
+        <div>
             <TippyHeadless
                 interactive
                 // visible de kta xem searchResults co phan tu k neu co thi moi hien
@@ -112,7 +111,7 @@ function Search() {
                     </button>
                 </div>
             </TippyHeadless>
-        </>
+        </div>
     );
 }
 

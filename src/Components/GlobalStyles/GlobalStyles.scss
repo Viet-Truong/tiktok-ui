@@ -13,6 +13,7 @@
     --default-layout-horizontal-spacer: 24px;
 }
 
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -28,7 +29,38 @@ body{
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+    overflow-y: overlay;
 }
+
+// SCROLLBAR
+// html ::-webkit-scrollbar {
+//     border-radius: 0px;
+//     width: 8px;
+// }
+// html *::-webkit-scrollbar {
+//     border-radius: 0;
+//     width: 8px;
+// }
+
+// html ::-webkit-scrollbar-thumb {
+//     border-radius: 4px;
+//     background-color: rgba(255, 255, 255, 0.15);
+// }
+// html *::-webkit-scrollbar-thumb {
+//     border-radius: 4px;
+//     background-color: rgba(255, 255, 255, .15);
+// }
+
+// html *::-webkit-scrollbar-track {
+//     border-radius: 0;
+//     background-color: rgba(0, 0, 0, 0);
+// }
+// html *::-webkit-scrollbar-track {
+//     border-radius: 0;
+//     background-color: rgba(0, 0, 0, 0);
+// }
+
+// END
 
 button, input, [tabindex] {
     outline: none;
@@ -59,4 +91,7 @@ body {
         padding: 8px 9px;
     }
 }
+
+
+
     
