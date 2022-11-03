@@ -10,6 +10,7 @@
     justify-content: center;
 }
 
+
 .inner{
     height: 100%;
     width: var(--default-layout-width);
@@ -17,6 +18,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 var(--default-layout-horizontal-spacer);
+}
+
+.logo-link {
+    display: flex;
 }
 
 

@@ -10,7 +10,12 @@ import Header from "./Header";
 const defaultFN = () => {};
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [], onChange = defaultFN }) {
+function Menu({
+    children,
+    items = [],
+    onChange = defaultFN,
+    hideOnClick = false,
+}) {
     // history ban dau` nhan vao` 1 mang gom 1 Object chinh la menu_items
     const [history, setHistory] = useState([{ data: items }]);
 
@@ -42,6 +47,7 @@ function Menu({ children, items = [], onChange = defaultFN }) {
         <Tippy
             delay={[0, 500]}
             offset={[12, 8]}
+            hideOnClick={hideOnClick}
             placement="bottom-end"
             interactive
             // cho select vao` ket qua

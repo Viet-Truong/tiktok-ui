@@ -1,14 +1,15 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { Link } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import images from "../../../../assets/images";
-
 import Button from "../../../../Components/Button";
 import Menu from "../../../Popper/Menu";
 import Image from "../../../Image";
 import Search from "../Search";
+import routesConfig from "../../../../config/routes";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -90,8 +91,12 @@ function Header() {
     return (
         <header className={cx("wrapper")}>
             <div className={cx("inner")}>
-                <img src={images.logo} alt="top top" />
+                <Link to={routesConfig.home} className={cx("logo-link")}>
+                    <img src={images.logo} alt="top top" />
+                </Link>
+
                 <Search />
+
                 <div className={cx("actions")}>
                     {currentUser ? (
                         <>
