@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 import styles from "./Search.module.scss";
 import { useEffect, useState, useRef } from "react";
-import { useDebounce } from "../../../../hooks";
+import { useDebounce } from "../../../hooks";
 
-import * as searchService from "../../../../API/searchServices";
-import { Wrapper as PopperWrapper } from "../../../../Components/Popper";
-import AccountItem from "../../../AccountItem";
+import * as searchService from "../../../API/searchServices";
+import { Wrapper as PopperWrapper } from "../../../Components/Popper";
+import AccountItem from "../../../Components/AccountItem";
 import TippyHeadless from "@tippyjs/react/headless";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
