@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./Menu.module.scss";
 import Tippy from "@tippyjs/react/headless";
@@ -57,7 +58,7 @@ function Menu({
                         {/* ktra neu history co bao nhieu ptu de render ra header cua menu_item */}
                         {history.length > 1 && (
                             <Header
-                                title="Language"
+                                title={current.title}
                                 // xu li khi nhan vao header se back ve lai bang cach setHistory lai bang cach xoa di ptu cuoi cua history
                                 onBack={() => {
                                     setHistory((prev) =>
@@ -76,5 +77,12 @@ function Menu({
         </Tippy>
     );
 }
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    onChange: PropTypes.func,
+    hideOnClick: PropTypes.bool,
+};
 
 export default Menu;
