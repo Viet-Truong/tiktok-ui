@@ -19,27 +19,27 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const [showResults, setShowResults] = useState(true);
+    const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
         // handle input = ''
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             setSearchResults([]);
             return;
         }
         // call API
         const fetch = async () => {
             setLoading(true);
-            const result = await searchService.search(debounced);
+            const result = await searchService.search(debouncedValue);
             setSearchResults(result);
             setLoading(false);
         };
         fetch();
-    }, [debounced]);
+    }, [debouncedValue]);
 
     const handleClear = () => {
         setSearchValue("");
