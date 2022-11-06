@@ -27,7 +27,6 @@ function Menu({
         return current.data.map((item, index) => {
             // ktra xem item cua menu_items co phan tu con k
             const isParent = !!item.children;
-
             return (
                 <MenuItem
                     key={index}
@@ -44,6 +43,15 @@ function Menu({
             );
         });
     };
+
+    const handleResetMenu = () => {
+        setHistory((prev) => prev.slice(0, 1));
+    };
+
+    const handleBack = () => {
+        setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+
     return (
         <Tippy
             delay={[0, 500]}
@@ -60,18 +68,14 @@ function Menu({
                             <Header
                                 title={current.title}
                                 // xu li khi nhan vao header se back ve lai bang cach setHistory lai bang cach xoa di ptu cuoi cua history
-                                onBack={() => {
-                                    setHistory((prev) =>
-                                        prev.slice(0, prev.length - 1)
-                                    );
-                                }}
+                                onBack={handleBack}
                             />
                         )}
                         <div className={cx("menu-body")}>{renderItems()}</div>
                     </PopperWrapper>
                 </div>
             )}
-            onHide={() => setHistory((prev) => prev.slice(0, 1))}
+            onHide={handleResetMenu}
         >
             {children}
         </Tippy>
