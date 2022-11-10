@@ -11,12 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountPreview from "./AccountPreview";
 
 const cx = classNames.bind(styles);
-function AccountItem() {
+function AccountItem({ data }) {
     const renderPreview = (props) => {
         return (
             <div tabIndex="-1" {...props}>
                 <PopperWrapper>
-                    <AccountPreview />
+                    <AccountPreview data={data} />
                 </PopperWrapper>
             </div>
         );
@@ -32,16 +32,24 @@ function AccountItem() {
                 placement="bottom"
             >
                 <div className={cx("account-item")}>
-                    <Image className={cx("avatar")} alt="A" src="" />
+                    <Image
+                        className={cx("avatar")}
+                        alt={data.nickname}
+                        src={data.avatar}
+                    />
                     <div className={cx("item-info")}>
                         <h4 className={cx("nick-name")}>
-                            <strong>Viet Truong</strong>
-                            <FontAwesomeIcon
-                                icon={faCheckCircle}
-                                className={cx("check")}
-                            />
+                            <strong>{data.nickname}</strong>
+                            {data.tick && (
+                                <FontAwesomeIcon
+                                    icon={faCheckCircle}
+                                    className={cx("check")}
+                                />
+                            )}
                         </h4>
-                        <p className={cx("name")}>Bùi Viết Trường</p>
+                        <p
+                            className={cx("name")}
+                        >{`${data.first_name} ${data.last_name}`}</p>
                     </div>
                 </div>
             </Tippy>
@@ -49,4 +57,7 @@ function AccountItem() {
     );
 }
 
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 export default AccountItem;

@@ -6,28 +6,40 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const cx = classNames.bind(styles);
-function AccountPreview() {
+function AccountPreview({ data }) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
-                <Image src="" alt="" className={cx("avatar")} />
+                <Image
+                    src={data.avatar}
+                    alt={data.nickname}
+                    className={cx("avatar")}
+                />
                 <Button primary small className={cx("follow-btn")}>
                     Follow
                 </Button>
             </header>
             <div className={cx("body")}>
                 <p className={cx("nickname")}>
-                    <strong>buiviettruong</strong>
-                    <FontAwesomeIcon
-                        icon={faCheckCircle}
-                        className={cx("check")}
-                    />
+                    <strong>{data.nickname}</strong>
+                    {data.tick && (
+                        <FontAwesomeIcon
+                            icon={faCheckCircle}
+                            className={cx("check")}
+                        />
+                    )}
                 </p>
-                <p className={cx("name")}>Bùi Viết Trường</p>
+                <p
+                    className={cx("name")}
+                >{`${data.first_name} ${data.last_name}`}</p>
                 <p className={cx("analytics")}>
-                    <strong className={cx("value")}>1000M </strong>
+                    <strong className={cx("value")}>
+                        {data.followers_count} M{" "}
+                    </strong>
                     <span className={cx("label")}>Followers</span>
-                    <strong className={cx("value")}>1000M </strong>
+                    <strong className={cx("value")}>
+                        {data.likes_count} M{" "}
+                    </strong>
                     <span className={cx("label")}>Likes</span>
                 </p>
             </div>

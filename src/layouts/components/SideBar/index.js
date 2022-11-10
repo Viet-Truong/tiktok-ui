@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./SideBar.module.scss";
+import { useState, useEffect } from "react";
 
 import Menu, { MenuItem } from "./Menu";
 import {
@@ -12,9 +13,22 @@ import {
 } from "./../../../Components/Icons";
 import config from "../../../config";
 import SuggestedAccounts from "../../../Components/SuggestedAccounts";
+import * as userService from "../../../API/userServices";
 
 const cx = classNames.bind(styles);
 function SideBar() {
+    const [suggestedUser, setSuggestedUser] = useState([]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            const result = await userService.getSuggested({
+                page: 1,
+                perPage: 5,
+            });
+            setSuggestedUser(result);
+        };
+        fetch();
+    }, []);
     return (
         <aside className={cx("wrapper")}>
             <Menu>
@@ -38,7 +52,10 @@ function SideBar() {
                 />
             </Menu>
 
-            <SuggestedAccounts label="Suggested accounts" />
+            <SuggestedAccounts
+                label="Suggested accounts"
+                data={suggestedUser}
+            />
             <SuggestedAccounts label="Following accounts" />
         </aside>
     );
