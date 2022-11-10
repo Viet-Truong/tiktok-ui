@@ -16,6 +16,8 @@ import SuggestedAccounts from "../../../Components/SuggestedAccounts";
 import * as userService from "../../../API/userServices";
 
 const cx = classNames.bind(styles);
+const PER_PAGE = 5;
+
 function SideBar() {
     const [suggestedUser, setSuggestedUser] = useState([]);
 
@@ -23,12 +25,13 @@ function SideBar() {
         const fetch = async () => {
             const result = await userService.getSuggested({
                 page: 1,
-                perPage: 5,
+                perPage: PER_PAGE,
             });
             setSuggestedUser(result);
         };
         fetch();
     }, []);
+
     return (
         <aside className={cx("wrapper")}>
             <Menu>

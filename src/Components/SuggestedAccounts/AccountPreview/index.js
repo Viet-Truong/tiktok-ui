@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import Image from "../../Image";
 import styles from "./AccountPreview.module.scss";
@@ -47,4 +48,7 @@ function AccountPreview({ data }) {
     );
 }
 
+AccountPreview.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 export default AccountPreview;
