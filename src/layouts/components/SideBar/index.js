@@ -19,17 +19,26 @@ const cx = classNames.bind(styles);
 const PER_PAGE = 5;
 
 function SideBar() {
+    const [followedUser, setFollowedUser] = useState([]);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
-        const fetch = async () => {
+        const fetchSuggest = async () => {
             const result = await userService.getSuggested({
                 page: 1,
                 perPage: PER_PAGE,
             });
             setSuggestedUser(result);
         };
-        fetch();
+        fetchSuggest();
+
+        const fetchFollow = async () => {
+            const result = await userService.getFollowed({
+                page: 1,
+            });
+            setFollowedUser(result);
+        };
+        fetchFollow();
     }, []);
 
     return (
@@ -59,7 +68,8 @@ function SideBar() {
                 label="Suggested accounts"
                 data={suggestedUser}
             />
-            <SuggestedAccounts label="Following accounts" />
+
+            <SuggestedAccounts label="Following accounts" data={followedUser} />
         </aside>
     );
 }

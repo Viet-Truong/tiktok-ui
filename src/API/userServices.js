@@ -13,3 +13,16 @@ export const getSuggested = async ({ page, perPage }) => {
         console.log(e);
     }
 };
+
+export const getFollowed = async ({ page }) => {
+    try {
+        const res = await request.get("me/followings", {
+            params: {
+                page,
+            },
+        });
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
