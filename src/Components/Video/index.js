@@ -1,0 +1,32 @@
+import classNames from "classnames/bind";
+import styles from "./Video.module.scss";
+import { useRef, useState } from "react";
+
+const cx = classNames.bind(styles);
+
+function Video({ src }) {
+    const videoRef = useRef();
+    const [playing, setPlaying] = useState(false);
+    const handleVideo = () => {
+        if (!playing) {
+            videoRef.current.play();
+            setPlaying(true);
+        } else {
+            videoRef.current.pause();
+            setPlaying(false);
+        }
+    };
+    return (
+        <div className={cx("wrapper")}>
+            <video
+                className={cx("video")}
+                src={src}
+                loop
+                ref={videoRef}
+                onClick={handleVideo}
+            />
+        </div>
+    );
+}
+
+export default Video;
