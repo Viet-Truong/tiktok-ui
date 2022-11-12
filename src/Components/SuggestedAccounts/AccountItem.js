@@ -13,13 +13,15 @@ import AccountPreview from "./AccountPreview";
 const cx = classNames.bind(styles);
 function AccountItem({ data }) {
     const renderPreview = (props) => {
-        return (
-            <div tabIndex="-1" {...props}>
-                <PopperWrapper>
-                    <AccountPreview data={data} />
-                </PopperWrapper>
-            </div>
-        );
+        if (!data.is_followed) {
+            return (
+                <div tabIndex="-1" {...props}>
+                    <PopperWrapper>
+                        <AccountPreview data={data} />
+                    </PopperWrapper>
+                </div>
+            );
+        }
     };
     return (
         //Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.

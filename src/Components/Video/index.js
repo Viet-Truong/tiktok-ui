@@ -18,13 +18,15 @@ function Video({ src }) {
     };
     return (
         <div className={cx("wrapper")}>
-            <video
-                className={cx("video")}
-                src={src}
-                loop
-                ref={videoRef}
-                onClick={handleVideo}
-            />
+            <div className={cx("wrapper-video")}>
+                <video
+                    className={cx("video")}
+                    src={src}
+                    loop
+                    ref={videoRef}
+                    onClick={handleVideo}
+                />
+            </div>
         </div>
     );
 }

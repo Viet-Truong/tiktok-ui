@@ -3,12 +3,19 @@ import classNames from "classnames/bind";
 import styles from "./Post.module.scss";
 
 import Video from "../Video";
-import Action from "../Action";
 import Image from "../Image";
 import Button from "../Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMusic } from "@fortawesome/free-solid-svg-icons";
+import {
+    faComment,
+    faHeart,
+    faHeartCircleBolt,
+    faHeartCircleCheck,
+    faMusic,
+    faShare,
+} from "@fortawesome/free-solid-svg-icons";
+import { HeartIcon } from "../Icons";
 
 const cx = classNames.bind(styles);
 function Post({ data }) {
@@ -21,7 +28,7 @@ function Post({ data }) {
                     alt={`${data.user.first_name} ${data.user.last_name}`}
                 />
             </div>
-            <div className={cx("content")}>
+            <div className={cx("wrapper-content")}>
                 <div className={cx("title")}>
                     <div>
                         <h3 className={cx("user-name")}>
@@ -38,14 +45,46 @@ function Post({ data }) {
                     </div>
                     <Button primary>Follow</Button>
                 </div>
-                <div className={cx("video-content")}>
-                    <div className={cx("video")}>
-                        <Video src={data.file_url} />
-                    </div>
-                    <div className={cx("action")}>
-                        <Action value={data.likes_count} />
-                        <Action value={data.comments_count} />
-                        <Action value={data.shares_count} />
+                <div className={cx("content")}>
+                    <div className={cx("video-content")}>
+                        <div className={cx("video")}>
+                            <Video src={data.file_url} />
+                        </div>
+                        <div className={cx("action")}>
+                            <div className={cx("heart", "action-item")}>
+                                <div className={cx("wrapper-icon")}>
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className={cx("icon")}
+                                    />
+                                </div>
+                                <p className={cx("value")}>
+                                    {data.likes_count}
+                                </p>
+                            </div>
+                            <div className={cx("comment", "action-item")}>
+                                <div className={cx("wrapper-icon")}>
+                                    <FontAwesomeIcon
+                                        icon={faComment}
+                                        className={cx("icon")}
+                                    />
+                                </div>
+                                <p className={cx("value")}>
+                                    {data.comments_count}
+                                </p>
+                            </div>
+                            <div className={cx("share", "action-item")}>
+                                <div className={cx("wrapper-icon")}>
+                                    <FontAwesomeIcon
+                                        icon={faShare}
+                                        className={cx("icon")}
+                                    />
+                                </div>
+                                <p className={cx("value")}>
+                                    {data.shares_count}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@
     height: 56px;
     border-radius: 50%;
 }
-.content {
+.wrapper-content {
     margin-left: 12px;
     width: 624px;
 }
@@ -17,47 +17,75 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.user-name {
-    font-size: 1.8rem;
-}
-
-.full-name {
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-left: 5px;
-}
-
-.title-post {
-    font-size: 1.4rem;
-    line-height: 22px;
-    margin-top: 3px;
-}
-.music {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-
-    .music-title{
+    .user-name {
+        font-size: 1.8rem;
+    }
+    
+    .full-name {
+        font-size: 1.4rem;
+        font-weight: 500;
         margin-left: 5px;
     }
+    
+    .title-post {
+        font-size: 1.4rem;
+        line-height: 22px;
+        margin-top: 3px;
+    }
+    .music {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    
+        .music-title{
+            margin-left: 5px;
+        }
+    }
 }
-.video-content {
-    position: relative;
-    height: 600px;
-    background-size: cover;
-    border-radius: 8px;
-    margin-right: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    margin-top: 10px;
-}
-.video {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-.action {
 
+.content {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+
+    .video-content {
+        height: 600px;
+        margin-top: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .wrapper-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        background-color: #1618230F;
+        border-radius: 50%;
+    }
+    
+    .icon {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .value {
+        margin-top: 5px;
+        text-align: center;
+        color: #161823bf;
+        font-size: 1.2rem;
+        line-height: 17px;
+    }
+
+    .action {
+        display: flex;
+        flex-direction: column;
+
+        .action-item {
+            margin-bottom: 10px;
+        }
+    }
 }
