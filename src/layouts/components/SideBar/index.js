@@ -67,6 +67,7 @@ function SideBar() {
             <SuggestedAccounts
                 label="Suggested accounts"
                 data={suggestedUser}
+                preview={true}
             />
 
             <SuggestedAccounts label="Following accounts" data={followedUser} />

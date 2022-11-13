@@ -11,9 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountPreview from "./AccountPreview";
 
 const cx = classNames.bind(styles);
-function AccountItem({ data }) {
+function AccountItem({ data, preview = false }) {
     const renderPreview = (props) => {
-        if (!data.is_followed) {
+        if (preview) {
             return (
                 <div tabIndex="-1" {...props}>
                     <PopperWrapper>

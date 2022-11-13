@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faComment,
     faHeart,
-    faHeartCircleBolt,
-    faHeartCircleCheck,
     faMusic,
+    faPlayCircle,
     faShare,
 } from "@fortawesome/free-solid-svg-icons";
 import { HeartIcon } from "../Icons";
