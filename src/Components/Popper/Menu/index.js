@@ -12,6 +12,7 @@ const defaultFN = () => {};
 const cx = classNames.bind(styles);
 
 function Menu({
+    className,
     children,
     items = [],
     onChange = defaultFN,
@@ -61,7 +62,11 @@ function Menu({
             interactive
             // cho select vao` ket qua
             render={(attrs) => (
-                <div className={cx("menu-items")} tabIndex="-1" {...attrs}>
+                <div
+                    className={cx("menu-items", className)}
+                    tabIndex="-1"
+                    {...attrs}
+                >
                     <PopperWrapper className={cx("menu-popper")}>
                         {/* ktra neu history co bao nhieu ptu de render ra header cua menu_item */}
                         {history.length > 1 && (

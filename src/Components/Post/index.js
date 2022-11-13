@@ -5,19 +5,94 @@ import styles from "./Post.module.scss";
 import Video from "../Video";
 import Image from "../Image";
 import Button from "../Button";
+import Menu from "../Popper/Menu";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    faCode,
     faComment,
+    faEnvelope,
     faHeart,
+    faLinkSlash,
     faMusic,
-    faPlayCircle,
+    faPaperPlane,
     faShare,
 } from "@fortawesome/free-solid-svg-icons";
-import { HeartIcon } from "../Icons";
-
+import {
+    faFacebook,
+    faLine,
+    faLinkedinIn,
+    faPinterest,
+    faReddit,
+    faTelegram,
+    faTwitter,
+    faWhatsapp,
+} from "@fortawesome/free-brands-svg-icons";
 const cx = classNames.bind(styles);
+
+const item = [
+    {
+        icon: <FontAwesomeIcon icon={faCode} />,
+        title: "Nhúng",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faPaperPlane} />,
+        title: "Gửi đến bạn bè",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faFacebook} />,
+        title: "Chia sẻ với Facebook",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faWhatsapp} />,
+        title: "Chia sẻ với WhatsApp",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faLinkSlash} />,
+        title: "Sao chép liên kết",
+    },
+    // {
+    //     icon: <FontAwesomeIcon icon={faTwitter} />,
+    //     title: "Chia sẻ với Twitter",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faLinkedinIn} />,
+    //     title: "Chia sẻ với LinkedIn",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faReddit} />,
+    //     title: "Chia sẻ với Reddit",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faTelegram} />,
+    //     title: "Chia sẻ với Telegram",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faEnvelope} />,
+    //     title: "Chia sẻ với Email",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faLine} />,
+    //     title: "Chia sẻ với Line",
+    // },
+    // {
+    //     icon: <FontAwesomeIcon icon={faPinterest} />,
+    //     title: "Chia sẻ với Pinterest",
+    // },
+];
+
 function Post({ data }) {
+    let isActive = false;
+    const handleLikeVideo = (value) => {
+        if (isActive) {
+            value -= 1;
+            isActive = false;
+        } else {
+            value += 1;
+            isActive = true;
+        }
+        console.log(isActive);
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("avatar-img")}>
@@ -51,14 +126,21 @@ function Post({ data }) {
                         </div>
                         <div className={cx("action")}>
                             <div className={cx("heart", "action-item")}>
-                                <div className={cx("wrapper-icon")}>
+                                <div
+                                    className={cx("wrapper-icon")}
+                                    onClick={() =>
+                                        handleLikeVideo(data.likes_count)
+                                    }
+                                >
                                     <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={cx("icon")}
+                                        className={cx("icon", {
+                                            active: isActive,
+                                        })}
                                     />
                                 </div>
                                 <p className={cx("value")}>
-                                    {data.likes_count}
+                                    {data.likes_count} M
                                 </p>
                             </div>
                             <div className={cx("comment", "action-item")}>
@@ -69,20 +151,22 @@ function Post({ data }) {
                                     />
                                 </div>
                                 <p className={cx("value")}>
-                                    {data.comments_count}
+                                    {data.comments_count} M
                                 </p>
                             </div>
-                            <div className={cx("share", "action-item")}>
-                                <div className={cx("wrapper-icon")}>
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className={cx("icon")}
-                                    />
+                            <Menu items={item} className={cx("menu")}>
+                                <div className={cx("share", "action-item")}>
+                                    <div className={cx("wrapper-icon")}>
+                                        <FontAwesomeIcon
+                                            icon={faShare}
+                                            className={cx("icon")}
+                                        />
+                                    </div>
+                                    <p className={cx("value")}>
+                                        {data.shares_count} M
+                                    </p>
                                 </div>
-                                <p className={cx("value")}>
-                                    {data.shares_count}
-                                </p>
-                            </div>
+                            </Menu>
                         </div>
                     </div>
                 </div>

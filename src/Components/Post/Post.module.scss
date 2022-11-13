@@ -13,6 +13,10 @@
     margin-left: 12px;
     width: 624px;
 }
+
+.active{
+    color: var(--primary);
+}
 .title {
     display: flex;
     justify-content: space-between;
@@ -67,6 +71,7 @@
     }
     
     .icon {
+        cursor: pointer;
         width: 20px;
         height: 20px;
     }
@@ -89,4 +94,8 @@
             cursor: pointer;
         }
     }
+}
+
+.menu {
+    width: 280px;
 }
