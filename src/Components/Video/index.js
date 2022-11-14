@@ -2,13 +2,18 @@ import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
 function Video({ src }) {
-    const videoRef = useRef();
     const [playing, setPlaying] = useState(false);
+    const videoRef = useRef();
+    let toggleIcon = playing ? (
+        <FontAwesomeIcon icon={faPause} className={cx("control-icon")} />
+    ) : (
+        <FontAwesomeIcon icon={faPlay} className={cx("control-icon")} />
+    );
     const handleVideo = () => {
         if (!playing) {
             videoRef.current.play();
@@ -28,6 +33,9 @@ function Video({ src }) {
                     ref={videoRef}
                     onClick={handleVideo}
                 />
+                <button className={cx("control")} onClick={handleVideo}>
+                    {toggleIcon}
+                </button>
             </div>
         </div>
     );

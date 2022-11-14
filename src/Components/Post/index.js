@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./Post.module.scss";
+import { useState } from "react";
 
 import Video from "../Video";
 import Image from "../Image";
@@ -82,16 +83,16 @@ const item = [
 ];
 
 function Post({ data }) {
-    let isActive = false;
-    const handleLikeVideo = (value) => {
-        if (isActive) {
-            value -= 1;
-            isActive = false;
+    const [btnState, setBtnState] = useState(false);
+    const [heartValue, setHeartValue] = useState(data.likes_count);
+    let toggleClassCheck = btnState ? "active" : "";
+    const handleLikeVideo = () => {
+        if (btnState) {
+            setHeartValue((prev) => prev - 1);
         } else {
-            value += 1;
-            isActive = true;
+            setHeartValue((prev) => prev + 1);
         }
-        console.log(isActive);
+        setBtnState((btnState) => !btnState);
     };
     return (
         <div className={cx("wrapper")}>
@@ -103,8 +104,8 @@ function Post({ data }) {
                 />
             </div>
             <div className={cx("wrapper-content")}>
-                <div className={cx("title")}>
-                    <div>
+                <div className={cx("title-content")}>
+                    <div className={cx("title")}>
                         <h3 className={cx("user-name")}>
                             {data.user.nickname}
                             <span
@@ -117,7 +118,9 @@ function Post({ data }) {
                             <p className={cx("music-title")}>{data.music}</p>
                         </h4>
                     </div>
-                    <Button primary>Follow</Button>
+                    <Button outline className={cx("follow-btn")}>
+                        Follow
+                    </Button>
                 </div>
                 <div className={cx("content")}>
                     <div className={cx("video-content")}>
@@ -127,21 +130,18 @@ function Post({ data }) {
                         <div className={cx("action")}>
                             <div className={cx("heart", "action-item")}>
                                 <div
-                                    className={cx("wrapper-icon")}
-                                    onClick={() =>
-                                        handleLikeVideo(data.likes_count)
-                                    }
+                                    className={cx(
+                                        "wrapper-icon",
+                                        `${toggleClassCheck}`
+                                    )}
+                                    onClick={handleLikeVideo}
                                 >
                                     <FontAwesomeIcon
                                         icon={faHeart}
-                                        className={cx("icon", {
-                                            active: isActive,
-                                        })}
+                                        className={cx("icon")}
                                     />
                                 </div>
-                                <p className={cx("value")}>
-                                    {data.likes_count} M
-                                </p>
+                                <p className={cx("value")}>{heartValue} M</p>
                             </div>
                             <div className={cx("comment", "action-item")}>
                                 <div className={cx("wrapper-icon")}>

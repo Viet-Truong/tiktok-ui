@@ -9,18 +9,28 @@
     height: 56px;
     border-radius: 50%;
 }
+.follow-btn {
+    padding: 4px 16px;
+}
+
+
 .wrapper-content {
     margin-left: 12px;
     width: 624px;
 }
 
+
 .active{
     color: var(--primary);
 }
-.title {
+.title-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .title {
+        padding-right: 30px;
+    }
     .user-name {
         font-size: 1.8rem;
     }
