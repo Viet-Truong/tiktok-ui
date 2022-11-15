@@ -1,5 +1,50 @@
 .wrapper{
+    flex-shrink: 0;
     width: 340px;
-    padding: 20px 0 26px 8px;
+}
+
+.wrapper-fix {
+    position: fixed;
+    overflow: scroll;
+    width: inherit;
+    top: var(--default-layout-header-height);
+    bottom: 0;
+    padding: 20px 8px 26px;
     margin-left: -20px;
+}
+
+.login-text {
+    color: #16182380;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.login {
+    border-top: 1px solid #e3e3e4;
+    padding: 20px 8px 24px;
+}
+
+.btn-login {
+    min-height: 48px;
+    width: 100%;
+    padding: 6px 8px;
+}
+
+.wrapper-hashtag {
+    border-top: 1px solid #e3e3e4;
+    padding: 20px 8px 24px;
+}
+
+.title-wrapper {
+    color: rgba(22, 24, 35, 0.75);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 20px;
+    padding-bottom: 16px;
+}
+
+.dflex {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }

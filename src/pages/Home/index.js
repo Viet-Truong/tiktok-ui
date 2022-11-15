@@ -13,7 +13,7 @@ function Home() {
         const fetchPost = async () => {
             const result = await postServices.getPost({
                 type: "for-you",
-                page: 1,
+                page: 9,
             });
             setPost(result);
         };

@@ -141,7 +141,7 @@ function Post({ data }) {
                                         className={cx("icon")}
                                     />
                                 </div>
-                                <p className={cx("value")}>{heartValue} M</p>
+                                <p className={cx("value")}>{heartValue}</p>
                             </div>
                             <div className={cx("comment", "action-item")}>
                                 <div className={cx("wrapper-icon")}>
@@ -151,7 +151,7 @@ function Post({ data }) {
                                     />
                                 </div>
                                 <p className={cx("value")}>
-                                    {data.comments_count} M
+                                    {data.comments_count}
                                 </p>
                             </div>
                             <Menu items={item} className={cx("menu")}>
@@ -163,7 +163,7 @@ function Post({ data }) {
                                         />
                                     </div>
                                     <p className={cx("value")}>
-                                        {data.shares_count} M
+                                        {data.shares_count}
                                     </p>
                                 </div>
                             </Menu>
