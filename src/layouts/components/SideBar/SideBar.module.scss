@@ -13,6 +13,8 @@
     margin-left: -20px;
 }
 
+
+// LOGIN SHOW WHEN CURRENT USER = false
 .login-text {
     color: #16182380;
     line-height: 22px;
@@ -30,12 +32,15 @@
     padding: 6px 8px;
 }
 
+//  WRAPPER - HASHTAG
+
 .wrapper-hashtag {
+    width: 100%;
     border-top: 1px solid #e3e3e4;
     padding: 20px 8px 24px;
 }
 
-.title-wrapper {
+.title-wrapper-hashtag {
     color: rgba(22, 24, 35, 0.75);
     font-weight: 600;
     font-size: 1.4rem;
@@ -47,4 +52,121 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+}
+
+.href-hashtag {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.href-hashtag :hover {
+    text-decoration: none;
+}
+
+.btn-hashtag {
+    justify-content: flex-start;
+    
+    span:last-child {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 100%;
+    }
+}
+
+.hashtag {
+    display: flex;
+    width: fit-content;
+    height: 24px;
+    max-width: 100%;
+    border: 1px solid rgba(22, 24, 35, 0.2);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    margin-right: 8px;
+    overflow: hidden;
+    background: rgb(255, 255, 255);
+    transition: background 200ms ease-in-out 0s;
+}
+
+.hashtag :hover {
+    background: rgba(22, 24, 35, 0.03);
+}
+
+.hashtag-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #161823bf;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height:18px;
+}
+
+// FOOTER
+
+.wrapper-footer {
+    border-top: 1px solid #e3e3e4;
+    padding: 20px 0;
+    padding-left: 5px;
+}
+
+.wrapper-row {
+    margin-bottom: 8px;
+}
+
+.item {
+    color: #16182380;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 17px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.more-btn {
+    position: relative;
+    color: #16182380;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 17px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+// COPYRIGHT
+
+.copyright {
+    color: #16182380;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 17px;
+    margin-top: 20px;
+}
+
+// POPOVER
+
+.popover-more {
+    position: absolute;
+    left: -160px;
+    bottom: -10px;
+    width: 200px;
+}
+
+.popover-btn-text {
+    padding: 15px 16px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all .3s;
+
+    &:hover{
+        color: var(--primary);
+    }
 }
