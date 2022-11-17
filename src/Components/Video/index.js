@@ -47,6 +47,7 @@ function Video({ src }) {
                         className={cx("video")}
                         src={src}
                         loop
+                        autoPlay
                         ref={videoRef}
                         onClick={handleVideo}
                     />
