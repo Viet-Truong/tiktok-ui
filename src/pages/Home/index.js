@@ -1,43 +1,58 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Post from "../../Components/Post";
 import * as postServices from "../../API/postServices";
 
-const FIRST_PAGE = 1;
 const cx = classNames.bind(styles);
 function Home() {
-    const bodyRef = useRef();
-    const [page, setPage] = useState(FIRST_PAGE);
     const [post, setPost] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(2);
 
     useEffect(() => {
-        const fetchPost = async () => {
+        const getListVideo = async () => {
             const result = await postServices.getPost({
                 type: "for-you",
-                page,
             });
-            setPost((prev) => [...prev, ...result]);
+            setPost(result);
         };
-        fetchPost();
-    }, [page]);
 
-    const onScroll = () => {
-        if (bodyRef.current) {
-            const { scrollTop, scrollHeight, clientHeight } = bodyRef.current;
-            if (scrollTop + clientHeight === scrollHeight) {
-                setPage(page + 1);
-                console.log("bottom");
-            }
+        getListVideo();
+    }, []);
+
+    const fetchListVideo = async () => {
+        const result = await postServices.getPost({
+            type: "for-you",
+            page,
+        });
+        return result;
+    };
+
+    const fetchData = async () => {
+        const listVideoNext = await fetchListVideo();
+
+        setPost([...post, ...listVideoNext]);
+        if (listVideoNext.length === 0) {
+            setHasMore(false);
         }
+        setPage((prev) => prev + 1);
     };
 
     return (
-        <div className={cx("wrapper")} ref={bodyRef} onScroll={onScroll}>
-            {post.map((item, index) => (
-                <Post data={item} key={index} />
-            ))}
+        <div className={cx("wrapper")}>
+            <InfiniteScroll
+                dataLength={post.length}
+                next={fetchData}
+                hasMore={hasMore}
+                endMessage={<h4>End</h4>}
+            >
+                {post.map((item, index) => (
+                    <Post data={item} key={index} />
+                ))}
+            </InfiniteScroll>
         </div>
     );
 }

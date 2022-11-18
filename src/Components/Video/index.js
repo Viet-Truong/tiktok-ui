@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,7 @@ function Video({ src }) {
             setPlaying(true);
         }
     };
+
     useEffect(() => {
         videoRef.current.volume = 0.1;
         if (isVisible) {
@@ -46,10 +47,12 @@ function Video({ src }) {
                     <video
                         className={cx("video")}
                         src={src}
-                        loop
-                        autoPlay
                         ref={videoRef}
                         onClick={handleVideo}
+                        loop
+                        autoPlay
+                        playsInline
+                        disablePictureInPicture
                     />
                     <button className={cx("control")} onClick={handleVideo}>
                         {toggleIcon}
@@ -60,4 +63,4 @@ function Video({ src }) {
     );
 }
 
-export default Video;
+export default memo(Video);
