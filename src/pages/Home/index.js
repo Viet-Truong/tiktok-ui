@@ -8,7 +8,6 @@ import * as postServices from "../../API/postServices";
 const FIRST_PAGE = 1;
 const cx = classNames.bind(styles);
 function Home() {
-    const node = useRef();
     const bodyRef = useRef();
     const [page, setPage] = useState(FIRST_PAGE);
     const [post, setPost] = useState([]);
@@ -19,22 +18,23 @@ function Home() {
                 type: "for-you",
                 page,
             });
-            if (page === 1) {
-                setPost(result);
-            } else {
-                setPost((prev) => [...prev, ...result]);
-            }
+            setPost((prev) => [...prev, ...result]);
         };
         fetchPost();
     }, [page]);
-    console.log(bodyRef.current);
 
-    // bodyRef.current.addEventListener("scroll", () => {
-    //     console.log("toi dya r");
-    // });
+    const onScroll = () => {
+        if (bodyRef.current) {
+            const { scrollTop, scrollHeight, clientHeight } = bodyRef.current;
+            if (scrollTop + clientHeight === scrollHeight) {
+                setPage(page + 1);
+                console.log("bottom");
+            }
+        }
+    };
 
     return (
-        <div className={cx("wrapper")} ref={bodyRef}>
+        <div className={cx("wrapper")} ref={bodyRef} onScroll={onScroll}>
             {post.map((item, index) => (
                 <Post data={item} key={index} />
             ))}
