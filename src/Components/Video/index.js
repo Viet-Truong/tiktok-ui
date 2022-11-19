@@ -3,12 +3,12 @@ import styles from "./Video.module.scss";
 import { useRef, useState, useEffect, memo } from "react";
 import VisibilitySensor from "react-visibility-sensor";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
 
-function Video({ src }) {
+function Video({ src, time }) {
     const videoRef = useRef();
     const [playing, setPlaying] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
@@ -22,8 +22,10 @@ function Video({ src }) {
         }
     };
 
+    const timeVideo = time < 45 ? "video_short" : "";
+
     useEffect(() => {
-        videoRef.current.volume = 0.1;
+        videoRef.current.volume = 0.5;
         if (isVisible) {
             videoRef.current.play();
             setPlaying(true);
@@ -35,28 +37,32 @@ function Video({ src }) {
         }
     }, [isVisible]);
 
-    let toggleIcon = playing ? (
-        <FontAwesomeIcon icon={faPause} className={cx("control-icon")} />
-    ) : (
-        <FontAwesomeIcon icon={faPlay} className={cx("control-icon")} />
-    );
+    // let toggleIcon = playing ? (
+    //     <FontAwesomeIcon icon={faPause} className={cx("control-icon")} />
+    // ) : (
+    //     <FontAwesomeIcon icon={faPlay} className={cx("control-icon")} />
+    // );
     return (
         <VisibilitySensor onChange={(isVisible) => setIsVisible(isVisible)}>
             <div className={cx("wrapper")}>
                 <div className={cx("wrapper-video")}>
                     <video
-                        className={cx("video")}
+                        className={cx("video", `${timeVideo}`)}
                         src={src}
                         ref={videoRef}
                         onClick={handleVideo}
+                        controls={true}
+                        controlsList={
+                            "nofullscreen nodownload noremoteplayback noplaybackrate"
+                        }
                         loop
                         autoPlay
                         playsInline
                         disablePictureInPicture
                     />
-                    <button className={cx("control")} onClick={handleVideo}>
+                    {/* <button className={cx("control")} onClick={handleVideo}>
                         {toggleIcon}
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </VisibilitySensor>

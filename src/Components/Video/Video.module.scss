@@ -1,3 +1,14 @@
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+video::-webkit-media-controls-panel
+{
+    margin: 0 5px 5px;
+    background: transparent;
+
+}
+
 .wrapper {
     position: relative;
     max-width: 300px;
@@ -14,6 +25,18 @@
     background-size: cover;
     overflow: hidden;
     cursor: pointer;
+}
+
+.video_short {
+    &::-webkit-media-controls-timeline {
+        display: none;
+    }
+    &::-webkit-media-controls-current-time-display{
+        display: none;
+    }
+    &::-webkit-media-controls-time-remaining-display {
+        display: none
+    }
 }
 
 .wrapper-video {

@@ -125,7 +125,10 @@ function Post({ data }) {
                 <div className={cx("content")}>
                     <div className={cx("video-content")}>
                         <div className={cx("video")}>
-                            <Video src={data.file_url} />
+                            <Video
+                                src={data.file_url}
+                                time={data.meta.playtime_seconds}
+                            />
                         </div>
                         <div className={cx("action")}>
                             <div className={cx("heart", "action-item")}>
