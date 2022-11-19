@@ -8,7 +8,7 @@ import VisibilitySensor from "react-visibility-sensor";
 
 const cx = classNames.bind(styles);
 
-function Video({ src, time }) {
+function Video({ src, time, width }) {
     const videoRef = useRef();
     const [playing, setPlaying] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
@@ -23,6 +23,7 @@ function Video({ src, time }) {
     };
 
     const timeVideo = time < 45 ? "video_short" : "";
+    const widthVideo = width > 900 ? "video_horizontal" : "";
 
     useEffect(() => {
         videoRef.current.volume = 0.5;
@@ -44,7 +45,7 @@ function Video({ src, time }) {
     // );
     return (
         <VisibilitySensor onChange={(isVisible) => setIsVisible(isVisible)}>
-            <div className={cx("wrapper")}>
+            <div className={cx("wrapper", `${widthVideo}`)}>
                 <div className={cx("wrapper-video")}>
                     <video
                         className={cx("video", `${timeVideo}`)}

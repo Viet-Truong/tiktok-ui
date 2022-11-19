@@ -17,6 +17,10 @@ video::-webkit-media-controls-panel
     margin-right: 20px;
 }
 
+.video_horizontal {
+    max-width: 500px;
+}
+
 .video {
     position: relative;
     width: 100%;

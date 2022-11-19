@@ -128,6 +128,7 @@ function Post({ data }) {
                             <Video
                                 src={data.file_url}
                                 time={data.meta.playtime_seconds}
+                                width={data.meta.video.resolution_x}
                             />
                         </div>
                         <div className={cx("action")}>
