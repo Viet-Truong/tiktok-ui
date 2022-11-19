@@ -8,6 +8,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
+    cursor: pointer;
 }
 .follow-btn {
     padding: 4px 16px;
@@ -33,6 +34,7 @@
     }
     .user-name {
         font-size: 1.8rem;
+        cursor: pointer;
     }
     
     .full-name {
