@@ -1,3 +1,30 @@
+# TIKTOK APP CLONE - MAKE YOUR DAY
+
+Live demo: [https://tiktok-ui-liart.vercel.app/](https://tiktok-ui-liart.vercel.app/)
+
+# TECHNOLOGY - PROGRAMMING LANGUAGE
+
+-   JavaScript
+-   Create React App
+-   Redux toolkit
+-   Restful API
+
+# API
+
+-   API Tiktok: [https://tiktok.fullstack.edu.vn/api](https://tiktok.fullstack.edu.vn/api)
+
+# Features
+
+-   Auth(Register, Login, Logout)
+-   Search accounts
+-   Follow user
+-   Like posts
+-   View profile
+-   Infinite loading list post
+-   Interact and watch videos like TikTok
+-   List post For you, Following
+-   Upload post
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
