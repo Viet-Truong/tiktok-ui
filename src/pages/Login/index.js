@@ -20,13 +20,13 @@ function Login({ login }) {
                     >
                         <div className={cx("input")}>
                             <label for={username} className={cx("label")}>
-                                Username
+                                Email
                             </label>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder="Enter your username"
+                                placeholder="Enter your email"
                             />
                         </div>
                         <div className={cx("input")}>
