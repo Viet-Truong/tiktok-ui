@@ -26,7 +26,7 @@ function Video({ src, time, width }) {
     const widthVideo = width > 900 ? "video_horizontal" : "";
 
     useEffect(() => {
-        videoRef.current.volume = 0.5;
+        videoRef.current.volume = 0.3;
         if (isVisible) {
             videoRef.current.play();
             setPlaying(true);
