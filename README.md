@@ -1,8 +1,8 @@
-# TIKTOK APP CLONE - MAKE YOUR DAY
+<h1 align="center"> TIKTOK APP CLONE - MAKE YOUR DAY </h1>
 
 Live demo: [https://tiktok-ui-liart.vercel.app/](https://tiktok-ui-liart.vercel.app/)
 
-# TECHNOLOGY - PROGRAMMING LANGUAGE
+# Technology - Programming Language
 
 -   JavaScript
 -   Create React App
