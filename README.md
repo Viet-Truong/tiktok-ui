@@ -11,7 +11,7 @@ Live demo: [https://tiktok-ui-liart.vercel.app/](https://tiktok-ui-liart.vercel.
 
 # API
 
--   API Tiktok: [https://tiktok.fullstack.edu.vn/api](https://tiktok.fullstack.edu.vn/api)
+-   API Tiktok from F8: [https://tiktok.fullstack.edu.vn/api](https://tiktok.fullstack.edu.vn/api)
 
 # Features
 
