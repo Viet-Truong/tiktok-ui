@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Home.module.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
 
 import Post from "../../Components/Post";
 import * as postServices from "../../API/postServices";
 
 const cx = classNames.bind(styles);
 function Home() {
+    const { user } = useSelector((state) => state.auth);
     const [post, setPost] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(2);
@@ -21,7 +23,7 @@ function Home() {
         };
 
         getListVideo();
-    }, []);
+    }, [user]);
 
     const fetchListVideo = async () => {
         const result = await postServices.getPost({

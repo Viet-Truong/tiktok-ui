@@ -23,7 +23,7 @@ function Following() {
         };
 
         getListVideo();
-    }, []);
+    }, [user]);
 
     const fetchListVideo = async () => {
         const result = await postServices.getPost({
