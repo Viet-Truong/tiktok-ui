@@ -15,7 +15,6 @@ import SignUp from "../pages/SignUp";
 // public routes
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.following, component: Following },
     { path: config.routes.profile, component: Profile },
     { path: config.routes.live, component: Live },
     { path: config.routes.search, component: Search, layout: null },
@@ -24,6 +23,6 @@ const publicRoutes = [
     { path: config.routes.signUp, component: SignUp, layout: null },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [{ path: config.routes.following, component: Following }];
 
 export { publicRoutes, privateRoutes };

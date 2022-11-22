@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
@@ -57,7 +58,8 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = true;
+    // const currentUser = true;
+    const { user } = useSelector((state) => state.auth);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -98,7 +100,7 @@ function Header() {
                 <Search />
 
                 <div className={cx("actions")}>
-                    {currentUser ? (
+                    {user ? (
                         <>
                             <div className={cx("upload-btn")}>
                                 <UploadIcon />
@@ -126,15 +128,17 @@ function Header() {
                     ) : (
                         <>
                             <Button text>Upload</Button>
-                            <Button primary>Log in</Button>
+                            <Button primary to={config.routes.login}>
+                                Log in
+                            </Button>
                         </>
                     )}
                     {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
                     <Menu
-                        items={currentUser ? userMenu : MENU_ITEMS}
+                        items={user ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                     >
-                        {currentUser ? (
+                        {user ? (
                             <Image
                                 className={cx("user-avatar")}
                                 src="https://cdn.discordapp.com/attachments/951411070055104572/1036634358615912519/matcuoi.jpg"

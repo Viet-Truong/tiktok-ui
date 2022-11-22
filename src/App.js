@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //import
-import { publicRoutes } from "./routes";
+import { publicRoutes, privateRoutes } from "./routes";
 import { DefaultLayout } from "./layouts";
 
 function App() {
@@ -12,6 +12,26 @@ function App() {
                 <Routes>
                     {publicRoutes.map((route, key) => {
                         // must use Fragment, use <> </> do not active/work
+                        let Layout = DefaultLayout;
+                        if (route.layout) {
+                            Layout = route.layout;
+                        } else if (route.layout === null) {
+                            Layout = Fragment;
+                        }
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={key}
+                                path={route.path}
+                                element={
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                }
+                            ></Route>
+                        );
+                    })}
+                    {privateRoutes.map((route, key) => {
                         let Layout = DefaultLayout;
                         if (route.layout) {
                             Layout = route.layout;

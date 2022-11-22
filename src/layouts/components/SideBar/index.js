@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./SideBar.module.scss";
 import { useState, useEffect } from "react";
 import Tippy from "@tippyjs/react/headless";
+import { useSelector } from "react-redux";
 
 import { Wrapper as PopperWrapper } from "../../../Components/Popper";
 import Menu, { MenuItem } from "./Menu";
@@ -147,7 +148,8 @@ const footerItems = [
 ];
 
 function SideBar() {
-    const currentUser = true;
+    // const currentUser = true;
+    const { user } = useSelector((state) => state.auth);
     const [followedUser, setFollowedUser] = useState([]);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
@@ -204,7 +206,7 @@ function SideBar() {
                     />
                 </Menu>
 
-                {!currentUser && (
+                {!user && (
                     <div className={cx("login")}>
                         <p className={cx("login-text")}>
                             Đăng nhập để follow các tác giả, thích video và xem
@@ -223,7 +225,7 @@ function SideBar() {
 
                 <SuggestedAccounts
                     label="Following accounts"
-                    data={followedUser}
+                    data={user && followedUser}
                 />
 
                 <section className={cx("wrapper-hashtag")}>

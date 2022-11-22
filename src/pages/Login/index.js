@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authLogin } from "../../redux/authAction";
+import config from "../../config";
 
 const cx = classNames.bind(styles);
-function Login({ login }) {
-    const [username, setUsername] = useState();
+function Login() {
+    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigation = useNavigate();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    useEffect(() => {
+        if (user) {
+            navigation(config.routes.home);
+        }
+    }, [navigation, user]);
+
+    const submit = (data) => {
+        dispatch(authLogin(data));
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("inner-login")}>
@@ -14,25 +31,21 @@ function Login({ login }) {
                     <h2 className={cx("title")}>
                         WELCOME <span>BACK</span>
                     </h2>
-                    <from
-                        onSubmit={() => login(username, password)}
+                    <form
+                        onSubmit={() => submit(email, password)}
                         className={cx("form")}
                     >
                         <div className={cx("input")}>
-                            <label for={username} className={cx("label")}>
-                                Email
-                            </label>
+                            <label className={cx("label")}>Email</label>
                             <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Enter your email"
                             />
                         </div>
                         <div className={cx("input")}>
-                            <label for={username} className={cx("label")}>
-                                Password
-                            </label>
+                            <label className={cx("label")}>Password</label>
                             <input
                                 type="text"
                                 value={password}
@@ -61,7 +74,7 @@ function Login({ login }) {
                             </div>
                             <div className={cx("sign-up")}>Sign Up</div>
                         </div>
-                    </from>
+                    </form>
                 </div>
             </div>
         </div>

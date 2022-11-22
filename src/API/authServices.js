@@ -11,7 +11,7 @@ export const login = async ({ email, password }) => {
                 },
             }
         );
-        return res.data;
+        return res;
     } catch (e) {
         console.log(e);
     }
@@ -29,8 +29,12 @@ export const register = async ({ type = "email", email, password }) => {
                 },
             }
         );
-        return res.data;
+        return res;
     } catch (e) {
         console.log(e);
     }
+};
+
+export const logout = async () => {
+    await request.post("https://tiktok.fullstack.edu.vn/api/auth/logout");
 };

@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
 import styles from "./Following.module.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSelector } from "react-redux";
 
 import Post from "../../Components/Post";
 import * as postServices from "../../API/postServices";
 
 const cx = classNames.bind(styles);
 function Following() {
+    const { user } = useSelector((state) => state.auth);
     const [post, setPost] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(2);
@@ -49,9 +51,8 @@ function Following() {
                 hasMore={hasMore}
                 endMessage={<h4>End</h4>}
             >
-                {post.map((item, index) => (
-                    <Post data={item} key={index} />
-                ))}
+                {user &&
+                    post.map((item, index) => <Post data={item} key={index} />)}
             </InfiniteScroll>
         </div>
     );
