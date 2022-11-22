@@ -45,15 +45,18 @@ function Following() {
 
     return (
         <div className={cx("wrapper")}>
-            <InfiniteScroll
-                dataLength={post.length}
-                next={fetchData}
-                hasMore={hasMore}
-                endMessage={<h4>End</h4>}
-            >
-                {user &&
-                    post.map((item, index) => <Post data={item} key={index} />)}
-            </InfiniteScroll>
+            {user && (
+                <InfiniteScroll
+                    dataLength={post.length}
+                    next={fetchData}
+                    hasMore={hasMore}
+                    endMessage={<h4>End</h4>}
+                >
+                    {post.map((item, index) => (
+                        <Post data={item} key={index} />
+                    ))}
+                </InfiniteScroll>
+            )}
         </div>
     );
 }
