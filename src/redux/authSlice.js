@@ -25,7 +25,7 @@ const authSlice = createSlice({
         },
         [authRegister.fulfilled]: (state, { payload }) => {
             state.loading = false;
-            state.user = payload;
+            state.auth = payload;
             state.success = true;
             state.token = payload.token;
         },
@@ -40,16 +40,17 @@ const authSlice = createSlice({
         },
         [authLogin.fulfilled]: (state, { payload }) => {
             state.loading = false;
-            state.user = payload;
+            state.auth = payload;
             state.token = payload.token;
         },
         [authLogin.rejected]: (state, { payload }) => {
             state.loading = false;
             state.error = payload;
         },
+        //log out
         [authLogout.fulfilled]: (state) => {
             state.loading = false;
-            state.user = null;
+            state.auth = null;
             state.token = null;
             state.error = null;
         },

@@ -20,8 +20,9 @@ function Login() {
         }
     }, [navigation, user]);
 
-    const submit = (data) => {
-        dispatch(authLogin(data));
+    const submit = (e) => {
+        e.preventDefault();
+        dispatch(authLogin({ email, password }));
     };
     return (
         <div className={cx("wrapper")}>
@@ -31,10 +32,7 @@ function Login() {
                     <h2 className={cx("title")}>
                         WELCOME <span>BACK</span>
                     </h2>
-                    <form
-                        onSubmit={() => submit(email, password)}
-                        className={cx("form")}
-                    >
+                    <form className={cx("form")}>
                         <div className={cx("input")}>
                             <label className={cx("label")}>Email</label>
                             <input
@@ -67,7 +65,9 @@ function Login() {
                                 Forgot your password?
                             </div>
                         </div>
-                        <button className={cx("btn-login")}>Login</button>
+                        <button className={cx("btn-login")} onClick={submit}>
+                            Login
+                        </button>
                         <div className={cx("link-sign-up")}>
                             <div className={cx("no-account")}>
                                 Haven't account
