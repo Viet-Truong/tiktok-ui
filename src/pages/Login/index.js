@@ -45,7 +45,7 @@ function Login() {
                         <div className={cx("input")}>
                             <label className={cx("label")}>Password</label>
                             <input
-                                type="text"
+                                type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Enter your password"

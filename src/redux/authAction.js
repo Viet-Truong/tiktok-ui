@@ -5,7 +5,7 @@ export const authRegister = createAsyncThunk(
     "authRegister",
     async ({ email, password, type }, { rejectWithValue }) => {
         try {
-            const auth = await authServices.register(email, password, type);
+            const auth = await authServices.register({ email, password, type });
             auth && localStorage.setItem("auth", JSON.stringify(auth));
             return auth.data;
         } catch (error) {
@@ -23,7 +23,7 @@ export const authLogin = createAsyncThunk(
     async ({ email, password }, { rejectWithValue }) => {
         console.log(email, password);
         try {
-            const auth = await authServices.login(email, password);
+            const auth = await authServices.login({ email, password });
             auth && localStorage.setItem("auth", JSON.stringify(auth));
             return auth.data;
         } catch (error) {
