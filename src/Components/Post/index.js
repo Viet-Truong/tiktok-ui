@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./Post.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Video from "../Video";
 import Image from "../Image";
@@ -137,7 +137,9 @@ function Post({ data }) {
                     <Button
                         outline
                         className={cx("follow-btn", `${toggleFollowCheck}`)}
-                        onClick={handleFollow}
+                        onClick={() =>
+                            setFollowState((followState) => !followState)
+                        }
                     >
                         {data.user.isFollowed ? "Follow" : "Đang Follow"}
                     </Button>
