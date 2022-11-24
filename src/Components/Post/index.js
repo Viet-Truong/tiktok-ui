@@ -171,7 +171,9 @@ function Post({ data }) {
                                         className={cx("icon")}
                                     />
                                 </div>
-                                <p className={cx("value")}>{heartValue}</p>
+                                <p className={cx("value")}>
+                                    {data.likes_count}
+                                </p>
                             </div>
                             <div className={cx("comment", "action-item")}>
                                 <div className={cx("wrapper-icon")}>
