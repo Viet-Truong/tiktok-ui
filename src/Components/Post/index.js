@@ -7,6 +7,7 @@ import Video from "../Video";
 import Image from "../Image";
 import Button from "../Button";
 import Menu from "../Popper/Menu";
+import * as postServices from "../../API/postServices";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -83,17 +84,32 @@ const item = [
 ];
 
 function Post({ data }) {
-    const [btnState, setBtnState] = useState(false);
-    const [heartValue, setHeartValue] = useState(data.likes_count);
-    let toggleClassCheck = btnState ? "active" : "";
-    const handleLikeVideo = () => {
-        if (btnState) {
-            setHeartValue((prev) => prev - 1);
-        } else {
-            setHeartValue((prev) => prev + 1);
-        }
-        setBtnState((btnState) => !btnState);
-    };
+    const [heartState, setHeartState] = useState(false);
+    // const [heartValue, setHeartValue] = useState(data.likes_count);
+    const [followState, setFollowState] = useState(false);
+    let toggleHeartCheck = heartState ? "active" : "";
+    let toggleFollowCheck = followState ? "active" : "";
+
+    useEffect(() => {
+        const fetchHeart = async () => {
+            if (heartState) {
+                await postServices.likePost(data.id);
+                setHeartState((heartState) => !heartState);
+            } else {
+                await postServices.unLikePost(data.id);
+                setHeartState((heartState) => !heartState);
+            }
+        };
+        fetchHeart();
+    }, [heartState]);
+
+    useEffect(() => {
+        const fetchFollow = async () => {
+            if (followState) {
+                // await postServices.
+            }
+        };
+    }, [followState]);
     return (
         <div className={cx("wrapper")}>
             <div className={cx("avatar-img")}>
@@ -118,8 +134,12 @@ function Post({ data }) {
                             <p className={cx("music-title")}>{data.music}</p>
                         </h4>
                     </div>
-                    <Button outline className={cx("follow-btn")}>
-                        Follow
+                    <Button
+                        outline
+                        className={cx("follow-btn", `${toggleFollowCheck}`)}
+                        onClick={handleFollow}
+                    >
+                        {data.user.isFollowed ? "Follow" : "Đang Follow"}
                     </Button>
                 </div>
                 <div className={cx("content")}>
@@ -136,9 +156,13 @@ function Post({ data }) {
                                 <div
                                     className={cx(
                                         "wrapper-icon",
-                                        `${toggleClassCheck}`
+                                        `${toggleHeartCheck}`
                                     )}
-                                    onClick={handleLikeVideo}
+                                    onClick={() =>
+                                        setHeartState(
+                                            (heartState) => !heartState
+                                        )
+                                    }
                                 >
                                     <FontAwesomeIcon
                                         icon={faHeart}

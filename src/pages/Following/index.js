@@ -50,7 +50,7 @@ function Following() {
                     dataLength={post.length}
                     next={fetchData}
                     hasMore={hasMore}
-                    endMessage={<h4>End</h4>}
+                    endMessage={<h4 className={cx("end-content")}>End</h4>}
                 >
                     {post.map((item, index) => (
                         <Post data={item} key={index} />

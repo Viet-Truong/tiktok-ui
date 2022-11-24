@@ -16,3 +16,21 @@ export const getPost = async ({ type, page = 1 }) => {
         console.log(e);
     }
 };
+
+export const likePost = async ({ id }) => {
+    try {
+        const res = await request.post(`post${id}/like`);
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const unLikePost = async ({ id }) => {
+    try {
+        const res = await request.post(`post${id}/unlike`);
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
