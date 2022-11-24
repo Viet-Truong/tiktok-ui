@@ -94,10 +94,8 @@ function Post({ data }) {
         const fetchHeart = async () => {
             if (heartState) {
                 await postServices.likePost(data.id);
-                setHeartState((heartState) => !heartState);
             } else {
                 await postServices.unLikePost(data.id);
-                setHeartState((heartState) => !heartState);
             }
         };
         fetchHeart();
