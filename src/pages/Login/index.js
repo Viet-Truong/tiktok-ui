@@ -3,6 +3,8 @@ import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import Button from "../../Components/Button";
 import { authLogin } from "../../redux/authAction";
 import config from "../../config";
 
@@ -19,7 +21,6 @@ function Login() {
             navigate(config.routes.home);
         }
     }, [navigate, auth]);
-    console.log(auth);
 
     const submit = (e) => {
         e.preventDefault();
@@ -66,14 +67,20 @@ function Login() {
                                 Forgot your password?
                             </div>
                         </div>
-                        <button className={cx("btn-login")} onClick={submit}>
+                        <Button className={cx("btn-login")} onClick={submit}>
                             Login
-                        </button>
+                        </Button>
                         <div className={cx("link-sign-up")}>
                             <div className={cx("no-account")}>
-                                Haven't account
+                                Haven't account?
+                                <Button
+                                    className={cx("sign-up")}
+                                    text
+                                    to="/signUp"
+                                >
+                                    Sign Up
+                                </Button>
                             </div>
-                            <div className={cx("sign-up")}>Sign Up</div>
                         </div>
                     </form>
                 </div>
