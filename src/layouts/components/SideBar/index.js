@@ -148,8 +148,7 @@ const footerItems = [
 ];
 
 function SideBar() {
-    // const currentUser = true;
-    const { user } = useSelector((state) => state.auth);
+    const { auth } = useSelector((state) => state.auth);
     const [followedUser, setFollowedUser] = useState([]);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
@@ -206,7 +205,7 @@ function SideBar() {
                     />
                 </Menu>
 
-                {!user && (
+                {!auth && (
                     <div className={cx("login")}>
                         <p className={cx("login-text")}>
                             Đăng nhập để follow các tác giả, thích video và xem
@@ -225,7 +224,7 @@ function SideBar() {
 
                 <SuggestedAccounts
                     label="Following accounts"
-                    data={user && followedUser}
+                    data={auth && followedUser}
                 />
 
                 <section className={cx("wrapper-hashtag")}>

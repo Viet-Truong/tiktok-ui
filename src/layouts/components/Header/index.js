@@ -59,7 +59,7 @@ const MENU_ITEMS = [
 
 function Header() {
     // const currentUser = true;
-    const { user } = useSelector((state) => state.auth);
+    const { auth } = useSelector((state) => state.auth);
 
     const handleMenuChange = (menuItem) => {
         console.log(menuItem);
@@ -100,7 +100,7 @@ function Header() {
                 <Search />
 
                 <div className={cx("actions")}>
-                    {user ? (
+                    {auth ? (
                         <>
                             <div className={cx("upload-btn")}>
                                 <UploadIcon />
@@ -135,13 +135,13 @@ function Header() {
                     )}
                     {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
                     <Menu
-                        items={user ? userMenu : MENU_ITEMS}
+                        items={auth ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                     >
-                        {user ? (
+                        {auth ? (
                             <Image
                                 className={cx("user-avatar")}
-                                src="https://cdn.discordapp.com/attachments/951411070055104572/1036634358615912519/matcuoi.jpg"
+                                src={auth.avatar}
                                 alt="A"
                             />
                         ) : (

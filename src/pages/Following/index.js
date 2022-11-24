@@ -9,7 +9,7 @@ import * as postServices from "../../API/postServices";
 
 const cx = classNames.bind(styles);
 function Following() {
-    const { user } = useSelector((state) => state.auth);
+    const { auth } = useSelector((state) => state.auth);
     const [post, setPost] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(2);
@@ -23,7 +23,7 @@ function Following() {
         };
 
         getListVideo();
-    }, [user]);
+    }, [auth]);
 
     const fetchListVideo = async () => {
         const result = await postServices.getPost({
@@ -45,7 +45,7 @@ function Following() {
 
     return (
         <div className={cx("wrapper")}>
-            {user && (
+            {auth && (
                 <InfiniteScroll
                     dataLength={post.length}
                     next={fetchData}
