@@ -8,17 +8,18 @@ import config from "../../config";
 
 const cx = classNames.bind(styles);
 function Login() {
-    const { user } = useSelector((state) => state.auth);
+    const { auth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     useEffect(() => {
-        if (user) {
-            navigation(config.routes.home);
+        if (auth) {
+            navigate(config.routes.home);
         }
-    }, [navigation, user]);
+    }, [navigate, auth]);
+    console.log(auth);
 
     const submit = (e) => {
         e.preventDefault();

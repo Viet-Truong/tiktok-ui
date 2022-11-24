@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authRegister, authLogin, authLogout } from "./authAction";
 
 const authJSON = localStorage.getItem("auth");
-const auth = JSON.parse(authJSON)?.data || null;
-const token = JSON.parse(authJSON)?.meta.token || null;
+const auth = JSON.parse(authJSON).data || null;
+const token = JSON.parse(authJSON).meta.token || null;
 
 const initialState = {
     loading: false,
