@@ -224,7 +224,7 @@ function SideBar() {
 
                 <SuggestedAccounts
                     label="Following accounts"
-                    data={!auth && followedUser}
+                    data={auth ? followedUser : []}
                 />
 
                 <section className={cx("wrapper-hashtag")}>

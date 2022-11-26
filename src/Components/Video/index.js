@@ -57,7 +57,6 @@ function Video({ src, time, width }) {
                             "nofullscreen nodownload noremoteplayback noplaybackrate"
                         }
                         loop
-                        autoPlay
                         playsInline
                         disablePictureInPicture
                     />

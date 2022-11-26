@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 function Button({
     to,
     href,
+    followed = false,
     rounded = false,
     disabled = false,
     text = false,
@@ -59,6 +60,7 @@ function Button({
         large,
         disabled,
         rounded,
+        followed,
         [className]: className,
     });
     return (

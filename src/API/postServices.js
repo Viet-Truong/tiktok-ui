@@ -17,18 +17,18 @@ export const getPost = async ({ type, page = 1 }) => {
     }
 };
 
-export const likePost = async ({ id }) => {
+export const likePost = async (id) => {
     try {
-        const res = await request.post(`post${id}/like`);
+        const res = await request.post(`videos/${id}/like`, id);
         return res.data;
     } catch (e) {
         console.log(e);
     }
 };
 
-export const unLikePost = async ({ id }) => {
+export const unLikePost = async (id) => {
     try {
-        const res = await request.post(`post${id}/unlike`);
+        const res = await request.post(`videos/${id}/unlike`, id);
         return res.data;
     } catch (e) {
         console.log(e);

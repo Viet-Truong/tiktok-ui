@@ -7,7 +7,8 @@ import Video from "../Video";
 import Image from "../Image";
 import Button from "../Button";
 import Menu from "../Popper/Menu";
-import * as postServices from "../../API/postServices";
+import handleLikeFunc from "./handleLike";
+import handleFollowFunc from "./handleFollow";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -84,71 +85,74 @@ const item = [
 ];
 
 function Post({ data }) {
-    const [heartState, setHeartState] = useState(false);
-    // const [heartValue, setHeartValue] = useState(data.likes_count);
-    const [followState, setFollowState] = useState(false);
-    let toggleHeartCheck = heartState ? "active" : "";
-    let toggleFollowCheck = followState ? "active" : "";
+    const [content, setContent] = useState(data);
+    const [user, setUser] = useState(content.user);
+    let toggleHeartCheck = content.is_liked ? "active" : "";
+    let toggleFollowCheck = user.isFollowed ? "" : "isFollowed";
 
     useEffect(() => {
-        const fetchHeart = async () => {
-            if (heartState) {
-                await postServices.likePost(data.id);
-            } else {
-                await postServices.unLikePost(data.id);
-            }
-        };
-        fetchHeart();
-    }, [heartState]);
+        setUser(content.user);
+        setContent(content);
+    }, [content]);
 
-    useEffect(() => {
-        const fetchFollow = async () => {
-            if (followState) {
-                // await postServices.
-            }
-        };
-    }, [followState]);
+    const handleFollow = async () => {
+        const isFollowed = await handleFollowFunc(user);
+        setUser((user) => ({ ...user, is_followed: isFollowed }));
+    };
+
+    const handleLike = async () => {
+        const newContent = await handleLikeFunc(content);
+        setContent((content) => ({
+            ...content,
+            ...newContent,
+        }));
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("avatar-img")}>
                 <Image
                     className={cx("avatar")}
-                    src={data.user.avatar}
-                    alt={`${data.user.first_name} ${data.user.last_name}`}
+                    src={user.avatar}
+                    alt={`${user.first_name} ${user.last_name}`}
                 />
             </div>
             <div className={cx("wrapper-content")}>
                 <div className={cx("title-content")}>
                     <div className={cx("title")}>
                         <h3 className={cx("user-name")}>
-                            {data.user.nickname}
+                            {user.nickname}
                             <span
                                 className={cx("full-name")}
-                            >{`${data.user.first_name} ${data.user.last_name}`}</span>
+                            >{`${user.first_name} ${user.last_name}`}</span>
                         </h3>
-                        <p className={cx("title-post")}>{data.description}</p>
+                        <p className={cx("title-post")}>
+                            {content.description}
+                        </p>
                         <h4 className={cx("music")}>
                             <FontAwesomeIcon icon={faMusic} />
-                            <p className={cx("music-title")}>{data.music}</p>
+                            <p className={cx("music-title")}>{content.music}</p>
                         </h4>
                     </div>
-                    <Button
-                        outline
-                        className={cx("follow-btn", `${toggleFollowCheck}`)}
-                        onClick={() =>
-                            setFollowState((followState) => !followState)
-                        }
-                    >
-                        {data.user.isFollowed ? "Follow" : "Đang Follow"}
-                    </Button>
+                    <div className={cx("follow-btn")} onClick={handleFollow}>
+                        {user.is_followed ? (
+                            <Button
+                                outline
+                                className={cx(`${toggleFollowCheck}`)}
+                            >
+                                Following
+                            </Button>
+                        ) : (
+                            <Button outline>Follow</Button>
+                        )}
+                    </div>
                 </div>
                 <div className={cx("content")}>
                     <div className={cx("video-content")}>
                         <div className={cx("video")}>
                             <Video
-                                src={data.file_url}
-                                time={data.meta.playtime_seconds}
-                                width={data.meta.video.resolution_x}
+                                src={content.file_url}
+                                time={content.meta.playtime_seconds}
+                                width={content.meta.video.resolution_x}
                             />
                         </div>
                         <div className={cx("action")}>
@@ -158,11 +162,7 @@ function Post({ data }) {
                                         "wrapper-icon",
                                         `${toggleHeartCheck}`
                                     )}
-                                    onClick={() =>
-                                        setHeartState(
-                                            (heartState) => !heartState
-                                        )
-                                    }
+                                    onClick={() => handleLike(content)}
                                 >
                                     <FontAwesomeIcon
                                         icon={faHeart}
@@ -170,7 +170,7 @@ function Post({ data }) {
                                     />
                                 </div>
                                 <p className={cx("value")}>
-                                    {data.likes_count}
+                                    {content.likes_count}
                                 </p>
                             </div>
                             <div className={cx("comment", "action-item")}>
@@ -181,7 +181,7 @@ function Post({ data }) {
                                     />
                                 </div>
                                 <p className={cx("value")}>
-                                    {data.comments_count}
+                                    {content.comments_count}
                                 </p>
                             </div>
                             <Menu items={item} className={cx("menu")}>
@@ -193,7 +193,7 @@ function Post({ data }) {
                                         />
                                     </div>
                                     <p className={cx("value")}>
-                                        {data.shares_count}
+                                        {content.shares_count}
                                     </p>
                                 </div>
                             </Menu>

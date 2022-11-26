@@ -24,6 +24,16 @@
 .active{
     color: var(--primary);
 }
+
+.isFollowed {
+    color: var(--black-color);
+    border-color: var(--black-color);
+
+    &:hover {
+        background-color: var(--white-color);
+    }
+}
+
 .title-content {
     display: flex;
     justify-content: space-between;
@@ -31,6 +41,7 @@
 
     .title {
         padding-right: 30px;
+        max-width: 450px;
     }
     .user-name {
         font-size: 1.8rem;
