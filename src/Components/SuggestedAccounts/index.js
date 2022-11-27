@@ -4,7 +4,15 @@ import PropTypes from "prop-types";
 import AccountItem from "./AccountItem";
 
 const cx = classNames.bind(styles);
-function SuggestedAccounts({ label, data = [], preview }) {
+function SuggestedAccounts({
+    label,
+    data = [],
+    preview,
+    isSeeAll = true,
+    onSeeAll,
+    isSeeMore = true,
+    onSeeMore,
+}) {
     return (
         <div className={cx("wrapper")}>
             <p className={cx("label")}>{label}</p>
@@ -15,7 +23,15 @@ function SuggestedAccounts({ label, data = [], preview }) {
                     preview={preview}
                 />
             ))}
-            <p className={cx("see-all")}>See All</p>
+            {preview ? (
+                <p className={cx("see-all")} onClick={onSeeAll}>
+                    {isSeeAll ? "See All" : "See Less"}
+                </p>
+            ) : (
+                <p className={cx("see-all")} onClick={onSeeMore}>
+                    {isSeeMore ? "See More" : "See Less"}
+                </p>
+            )}
         </div>
     );
 }

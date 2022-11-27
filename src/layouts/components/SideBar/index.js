@@ -149,8 +149,14 @@ const footerItems = [
 
 function SideBar() {
     const { auth } = useSelector((state) => state.auth);
+    const [isFirst, setIsFirst] = useState(true);
+    const [isSeeAll, setIsSeeAll] = useState(true);
+    const [page, setPage] = useState();
     const [followedUser, setFollowedUser] = useState([]);
     const [suggestedUser, setSuggestedUser] = useState([]);
+    const suggestedUserCut = suggestedUser.slice(0, 5);
+
+    console.log(suggestedUser, suggestedUserCut);
 
     const renderPreview = () => {
         return (
@@ -162,24 +168,56 @@ function SideBar() {
         );
     };
 
+    // SUGGEST USER
     useEffect(() => {
         const fetchSuggest = async () => {
             const result = await userService.getSuggested({
-                page: 1,
+                page,
                 perPage: PER_PAGE,
             });
             setSuggestedUser(result);
         };
         fetchSuggest();
+    }, [page]);
 
+    const fetchUserSuggest = async () => {
+        const result = await userService.getSuggested({
+            page: 2,
+            perPage: 15,
+        });
+        return result;
+    };
+
+    const handleSeeAll = async () => {
+        if (isSeeAll) {
+            if (isFirst) {
+                const listUserNext = await fetchUserSuggest();
+                setSuggestedUser([...suggestedUser, ...listUserNext]);
+                setIsSeeAll(false);
+                setIsFirst(false);
+            } else {
+                setSuggestedUser(suggestedUser);
+                setIsSeeAll(false);
+            }
+        } else {
+            setSuggestedUser(suggestedUserCut);
+            setIsSeeAll(true);
+        }
+    };
+
+    // FOLLOWED USER
+
+    useEffect(() => {
         const fetchFollow = async () => {
             const result = await userService.getFollowed({
-                page: 1,
+                page,
             });
             setFollowedUser(result);
         };
         fetchFollow();
-    }, []);
+    }, [page]);
+
+    const handleSeeMore = () => {};
 
     return (
         <aside className={cx("wrapper")}>
@@ -220,11 +258,14 @@ function SideBar() {
                     label="Suggested accounts"
                     data={suggestedUser}
                     preview={true}
+                    onSeeAll={handleSeeAll}
+                    isSeeAll={isSeeAll}
                 />
 
                 <SuggestedAccounts
                     label="Following accounts"
                     data={auth ? followedUser : []}
+                    onSeeMore={handleSeeMore}
                 />
 
                 <section className={cx("wrapper-hashtag")}>
