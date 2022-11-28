@@ -9,80 +9,17 @@ import Button from "../Button";
 import Menu from "../Popper/Menu";
 import handleLikeFunc from "./handleLike";
 import handleFollowFunc from "./handleFollow";
+import { SOCIAL_MENU_ITEMS as item } from "../../data/menuItemData";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCode,
     faComment,
-    faEnvelope,
     faHeart,
-    faLinkSlash,
     faMusic,
-    faPaperPlane,
     faShare,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-    faFacebook,
-    faLine,
-    faLinkedinIn,
-    faPinterest,
-    faReddit,
-    faTelegram,
-    faTwitter,
-    faWhatsapp,
-} from "@fortawesome/free-brands-svg-icons";
-const cx = classNames.bind(styles);
 
-const item = [
-    {
-        icon: <FontAwesomeIcon icon={faCode} />,
-        title: "Nhúng",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faPaperPlane} />,
-        title: "Gửi đến bạn bè",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faFacebook} />,
-        title: "Chia sẻ với Facebook",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faWhatsapp} />,
-        title: "Chia sẻ với WhatsApp",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faLinkSlash} />,
-        title: "Sao chép liên kết",
-    },
-    // {
-    //     icon: <FontAwesomeIcon icon={faTwitter} />,
-    //     title: "Chia sẻ với Twitter",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faLinkedinIn} />,
-    //     title: "Chia sẻ với LinkedIn",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faReddit} />,
-    //     title: "Chia sẻ với Reddit",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faTelegram} />,
-    //     title: "Chia sẻ với Telegram",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faEnvelope} />,
-    //     title: "Chia sẻ với Email",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faLine} />,
-    //     title: "Chia sẻ với Line",
-    // },
-    // {
-    //     icon: <FontAwesomeIcon icon={faPinterest} />,
-    //     title: "Chia sẻ với Pinterest",
-    // },
-];
+const cx = classNames.bind(styles);
 
 function Post({ data }) {
     const [content, setContent] = useState(data);
