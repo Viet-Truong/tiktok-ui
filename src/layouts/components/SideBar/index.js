@@ -18,145 +18,22 @@ import config from "../../../config";
 import SuggestedAccounts from "../../../Components/SuggestedAccounts";
 import * as userService from "../../../API/userServices";
 import Button from "../../../Components/Button";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHashtag, faMusic } from "@fortawesome/free-solid-svg-icons";
+import { hashtagItem, footerItems } from "../../../data/sidebarData";
 
 const cx = classNames.bind(styles);
 const PER_PAGE = 5;
-const hashtagItem = [
-    {
-        icon: <FontAwesomeIcon icon={faHashtag} />,
-        text: "suthatla",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faHashtag} />,
-        text: "mackedoi",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faHashtag} />,
-        text: "sansangthaydoi",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMusic} />,
-        text: "Yêu Đơn Phương Là Gì (MEE Remix) - Mee Media & h0n",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMusic} />,
-        text: "Về Nghe Mẹ Ru - NSND Bach Tuyet & Hứa Kim Tuyền & 14 Casper & Hoàng Dũng",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMusic} />,
-        text: "Thiên Thần Tình Yêu - RICKY STAR",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faHashtag} />,
-        text: "7749hieuung",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faHashtag} />,
-        text: "genzlife",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMusic} />,
-        text: "Tình Đã Đầy Một Tim - Huyền Tâm Môn",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faMusic} />,
-        text: "Thằng Hầu (Thái Hoàng Remix) [Short Version] - Dunghoangpham",
-    },
-];
-
-const footerItems = [
-    {
-        row: [
-            {
-                title: "Giới thiệu",
-            },
-            {
-                title: "Bảng tin",
-            },
-            {
-                title: "Liên Hệ",
-            },
-            {
-                title: "Sự Nghiệp",
-            },
-            {
-                title: "ByteDance",
-            },
-        ],
-    },
-    {
-        row: [
-            {
-                title: "TikTok for Good",
-            },
-            {
-                title: "Quảng cáo",
-            },
-            {
-                title: "Developers",
-            },
-            {
-                title: "Transparency",
-            },
-        ],
-    },
-    {
-        row: [
-            {
-                title: "TikTok Rewards",
-            },
-            {
-                title: "TikTok Browse",
-            },
-            {
-                title: "TikTok Embeds",
-            },
-        ],
-    },
-    {
-        row: [
-            {
-                title: "Trợ giúp",
-            },
-            {
-                title: "An Toàn",
-            },
-            {
-                title: "Điều khoản",
-            },
-            {
-                title: "Quyền riêng tư",
-            },
-        ],
-    },
-    {
-        row: [
-            {
-                title: "Creator Portal",
-            },
-            {
-                title: "Hướng dẫn",
-            },
-            {
-                title: "Cộng đồng",
-            },
-        ],
-    },
-];
 
 function SideBar() {
     const { auth } = useSelector((state) => state.auth);
     const [isFirst, setIsFirst] = useState(true);
     const [isSeeAll, setIsSeeAll] = useState(true);
-    const [page, setPage] = useState();
+    const [isSeeMore, setIsSeeMore] = useState(true);
+    const [pageSuggested, setPageSuggested] = useState(1);
+    const [pageFollow, setPageFollow] = useState(1);
     const [followedUser, setFollowedUser] = useState([]);
     const [suggestedUser, setSuggestedUser] = useState([]);
+    const [suggestedUserMore, setSuggestedUserMore] = useState([]);
     const suggestedUserCut = suggestedUser.slice(0, 5);
-
-    console.log(suggestedUser, suggestedUserCut);
 
     const renderPreview = () => {
         return (
@@ -172,13 +49,13 @@ function SideBar() {
     useEffect(() => {
         const fetchSuggest = async () => {
             const result = await userService.getSuggested({
-                page,
+                page: pageSuggested,
                 perPage: PER_PAGE,
             });
             setSuggestedUser(result);
         };
         fetchSuggest();
-    }, [page]);
+    }, [pageSuggested]);
 
     const fetchUserSuggest = async () => {
         const result = await userService.getSuggested({
@@ -193,10 +70,11 @@ function SideBar() {
             if (isFirst) {
                 const listUserNext = await fetchUserSuggest();
                 setSuggestedUser([...suggestedUser, ...listUserNext]);
+                setSuggestedUserMore([...suggestedUser, ...listUserNext]);
                 setIsSeeAll(false);
                 setIsFirst(false);
             } else {
-                setSuggestedUser(suggestedUser);
+                setSuggestedUser(suggestedUserMore);
                 setIsSeeAll(false);
             }
         } else {
@@ -210,14 +88,19 @@ function SideBar() {
     useEffect(() => {
         const fetchFollow = async () => {
             const result = await userService.getFollowed({
-                page,
+                page: pageFollow,
             });
-            setFollowedUser(result);
+            if (result.length === 0) {
+                setIsSeeMore(false);
+            }
+            setFollowedUser((prev) => [...prev, ...result]);
         };
         fetchFollow();
-    }, [page]);
+    }, [pageFollow]);
 
-    const handleSeeMore = () => {};
+    const handleSeeMore = async () => {
+        setPageFollow(pageFollow + 1);
+    };
 
     return (
         <aside className={cx("wrapper")}>
@@ -249,7 +132,12 @@ function SideBar() {
                             Đăng nhập để follow các tác giả, thích video và xem
                             bình luận.
                         </p>
-                        <Button outline large className={cx("btn-login")}>
+                        <Button
+                            outline
+                            large
+                            className={cx("btn-login")}
+                            to={config.routes.login}
+                        >
                             Login
                         </Button>
                     </div>
@@ -266,6 +154,7 @@ function SideBar() {
                     label="Following accounts"
                     data={auth ? followedUser : []}
                     onSeeMore={handleSeeMore}
+                    isSeeMore={isSeeMore}
                 />
 
                 <section className={cx("wrapper-hashtag")}>

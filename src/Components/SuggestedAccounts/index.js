@@ -29,7 +29,7 @@ function SuggestedAccounts({
                 </p>
             ) : (
                 <p className={cx("see-all")} onClick={onSeeMore}>
-                    {isSeeMore ? "See More" : "See Less"}
+                    {isSeeMore ? "See More" : ""}
                 </p>
             )}
         </div>

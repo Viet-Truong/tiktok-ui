@@ -36,7 +36,7 @@ export const authLogin = createAsyncThunk(
     }
 );
 
-export const authLogout = createAsyncThunk("auth/logout", async () => {
+export const authLogout = createAsyncThunk("authLogout", async () => {
     await authServices.logout();
     localStorage.removeItem("auth");
 });

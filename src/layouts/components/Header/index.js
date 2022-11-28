@@ -2,7 +2,8 @@ import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
@@ -11,13 +12,12 @@ import Menu from "../../../Components/Popper/Menu";
 import Image from "../../../Components/Image";
 import Search from "../Search";
 import config from "../../../config";
+import { MENU_ITEMS } from "../../../data/menuItemData";
+import { authLogout } from "../../../redux/authAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faEarthAsia,
     faEllipsisVertical,
-    faCircleQuestion,
-    faKeyboard,
     faUser,
     faCoins,
     faGear,
@@ -26,50 +26,27 @@ import {
 import { InboxIcon, MessageIcon, UploadIcon } from "../../../Components/Icons";
 
 const cx = classNames.bind(styles);
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: "Tiếng việt",
-        children: {
-            title: "Language",
-            data: [
-                {
-                    type: "Language",
-                    code: "en",
-                    title: "English",
-                },
-                {
-                    type: "Language",
-                    code: "vie",
-                    title: "Tiếng việt",
-                },
-            ],
-        },
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: "Feedback and Help",
-        to: "/feedback",
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: "Keyboard shortcuts",
-    },
-];
 
 function Header() {
     // const currentUser = true;
     const { auth } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
     const handleMenuChange = (menuItem) => {
-        console.log(menuItem);
+        switch (menuItem.type) {
+            case "logout":
+                dispatch(authLogout());
+                break;
+            default:
+                break;
+        }
     };
 
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: "View profile",
-            to: "/profile",
+            type: "profile",
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
@@ -85,7 +62,7 @@ function Header() {
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: "Log out",
-            to: "/logout",
+            type: "logout",
             separate: true,
         },
     ];

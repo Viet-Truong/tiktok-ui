@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHashtag, faMusic } from "@fortawesome/free-solid-svg-icons";
+
 export const hashtagItem = [
     {
         icon: <FontAwesomeIcon icon={faHashtag} />,

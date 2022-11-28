@@ -73,6 +73,10 @@
         white-space: nowrap;
         max-width: 100%;
     }
+
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
 }
 
 .hashtag {
@@ -85,13 +89,9 @@
     margin-bottom: 12px;
     margin-right: 8px;
     overflow: hidden;
-    background: rgb(255, 255, 255);
-    transition: background 200ms ease-in-out 0s;
+    background: var();
 }
 
-.hashtag :hover {
-    background: rgba(22, 24, 35, 0.03);
-}
 
 .hashtag-text {
     text-overflow: ellipsis;
