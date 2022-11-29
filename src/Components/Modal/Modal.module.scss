@@ -8,7 +8,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
+
+.modal.close {
+    display: none;
+}
+
 
 .wrapper-modal {
     position: relative;
@@ -47,12 +53,14 @@
 .modal-title {
     text-align: center;
     margin: 40px 0;
+    color: var(--primary);
 }
 
 .content {
     display: flex;
     flex-direction: column;
     padding: 0 20px;
+    overflow-y: scroll;
     :nth-child(1) {
         margin-left: 8px;
     }
@@ -70,5 +78,6 @@
     :first-child {
         position: absolute;
         left: 0;
+        top: 7px;
     }
 }

@@ -19,12 +19,14 @@ import SuggestedAccounts from "../../../Components/SuggestedAccounts";
 import * as userService from "../../../API/userServices";
 import Button from "../../../Components/Button";
 import { hashtagItem, footerItems } from "../../../data/sidebarData";
+import Modal from "../../../Components/Modal";
 
 const cx = classNames.bind(styles);
 const PER_PAGE = 5;
 
 function SideBar() {
     const { auth } = useSelector((state) => state.auth);
+    const [close, setClose] = useState(true);
     const [isFirst, setIsFirst] = useState(true);
     const [isSeeAll, setIsSeeAll] = useState(true);
     const [isSeeMore, setIsSeeMore] = useState(true);
@@ -102,6 +104,11 @@ function SideBar() {
         setPageFollow(pageFollow + 1);
     };
 
+    // CLOSE MODAL
+    const handleClose = () => {
+        setClose(true);
+    };
+
     return (
         <aside className={cx("wrapper")}>
             <div className={cx("wrapper-fix")}>
@@ -136,7 +143,7 @@ function SideBar() {
                             outline
                             large
                             className={cx("btn-login")}
-                            to={config.routes.login}
+                            onClick={() => setClose(false)}
                         >
                             Login
                         </Button>
@@ -210,6 +217,7 @@ function SideBar() {
                     </p>
                 </section>
             </div>
+            <Modal isClose={close} handleClose={handleClose} />
         </aside>
     );
 }

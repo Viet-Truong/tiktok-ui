@@ -107,18 +107,22 @@ export const SOCIAL_MENU_ITEMS_LOGIN = [
     {
         icon: <FontAwesomeIcon icon={faFacebook} />,
         title: "Tiếp tục với Facebook",
+        color: "#1877F2",
     },
     {
         icon: <FontAwesomeIcon icon={faGoogle} />,
         title: "Tiếp tục với Google",
+        color: "#4285F4",
     },
     {
         icon: <FontAwesomeIcon icon={faTwitter} />,
         title: "Tiếp tục với Twitter",
+        color: "#1DA1F2",
     },
     {
         icon: <FontAwesomeIcon icon={faLine} />,
         title: "Tiếp tục với Line",
+        color: "#00C300",
     },
     {
         icon: <FontAwesomeIcon icon={faApple} />,
@@ -127,5 +131,6 @@ export const SOCIAL_MENU_ITEMS_LOGIN = [
     {
         icon: <FontAwesomeIcon icon={faInstagram} />,
         title: "Tiếp tục với Instagram",
+        color: "#E4405F",
     },
 ];
