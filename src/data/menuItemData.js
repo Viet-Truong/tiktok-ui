@@ -1,3 +1,17 @@
+import {
+    Facebook,
+    Google,
+    Twitter,
+    Line,
+    Instagram,
+    Apple,
+    WhatsApp,
+    LinkedIn,
+    Reddit,
+    Telegram,
+    Pinterest,
+} from "../Components/Icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEarthAsia,
@@ -7,15 +21,6 @@ import {
     faLinkSlash,
     faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-    faFacebook,
-    faLine,
-    faTwitter,
-    faWhatsapp,
-    faGoogle,
-    faApple,
-    faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 
 export const MENU_ITEMS = [
     {
@@ -58,11 +63,11 @@ export const SOCIAL_MENU_ITEMS = [
         title: "Gửi đến bạn bè",
     },
     {
-        icon: <FontAwesomeIcon icon={faFacebook} />,
+        icon: <Facebook />,
         title: "Chia sẻ với Facebook",
     },
     {
-        icon: <FontAwesomeIcon icon={faWhatsapp} />,
+        icon: <WhatsApp />,
         title: "Chia sẻ với WhatsApp",
     },
     {
@@ -70,27 +75,27 @@ export const SOCIAL_MENU_ITEMS = [
         title: "Sao chép liên kết",
     },
     // {
-    //     icon: <FontAwesomeIcon icon={faTwitter} />,
+    //     icon: <Twitter />,
     //     title: "Chia sẻ với Twitter",
     // },
     // {
-    //     icon: <FontAwesomeIcon icon={faLinkedinIn} />,
+    //     icon: <LinkedIn />,
     //     title: "Chia sẻ với LinkedIn",
     // },
     // {
-    //     icon: <FontAwesomeIcon icon={faReddit} />,
+    //     icon: <Reddit />,
     //     title: "Chia sẻ với Reddit",
     // },
     // {
-    //     icon: <FontAwesomeIcon icon={faTelegram} />,
+    //     icon: <Telegram />,
     //     title: "Chia sẻ với Telegram",
     // },
     // {
-    //     icon: <FontAwesomeIcon icon={faLine} />,
+    //     icon: <Line />,
     //     title: "Chia sẻ với Line",
     // },
     // {
-    //     icon: <FontAwesomeIcon icon={faPinterest} />,
+    //     icon: <Pinterest />,
     //     title: "Chia sẻ với Pinterest",
     // },
 ];
@@ -105,31 +110,31 @@ export const SOCIAL_MENU_ITEMS_LOGIN = [
         title: "Email",
     },
     {
-        icon: <FontAwesomeIcon icon={faFacebook} />,
+        icon: <Facebook />,
         title: "Tiếp tục với Facebook",
         color: "#1877F2",
     },
     {
-        icon: <FontAwesomeIcon icon={faGoogle} />,
+        icon: <Google />,
         title: "Tiếp tục với Google",
         color: "#4285F4",
     },
     {
-        icon: <FontAwesomeIcon icon={faTwitter} />,
+        icon: <Twitter />,
         title: "Tiếp tục với Twitter",
         color: "#1DA1F2",
     },
     {
-        icon: <FontAwesomeIcon icon={faLine} />,
+        icon: <Line />,
         title: "Tiếp tục với Line",
         color: "#00C300",
     },
     {
-        icon: <FontAwesomeIcon icon={faApple} />,
+        icon: <Apple />,
         title: "Tiếp tục với Apple",
     },
     {
-        icon: <FontAwesomeIcon icon={faInstagram} />,
+        icon: <Instagram />,
         title: "Tiếp tục với Instagram",
         color: "#E4405F",
     },

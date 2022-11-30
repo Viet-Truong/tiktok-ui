@@ -2,11 +2,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import styles from "./Post.module.scss";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import Video from "../Video";
 import Image from "../Image";
 import Button from "../Button";
 import Menu from "../Popper/Menu";
+import Modal from "../Modal";
 import handleLikeFunc from "./handleLike";
 import handleFollowFunc from "./handleFollow";
 import { SOCIAL_MENU_ITEMS as item } from "../../data/menuItemData";
@@ -22,6 +24,8 @@ import {
 const cx = classNames.bind(styles);
 
 function Post({ data }) {
+    const [close, setClose] = useState(true);
+    const { auth } = useSelector((state) => state.auth);
     const [content, setContent] = useState(data);
     const [user, setUser] = useState(content.user);
     let toggleHeartCheck = content.is_liked ? "active" : "";
@@ -43,6 +47,11 @@ function Post({ data }) {
             ...content,
             ...newContent,
         }));
+    };
+
+    // CLOSE MODAL
+    const handleClose = () => {
+        setClose(true);
     };
     return (
         <div className={cx("wrapper")}>
@@ -71,7 +80,9 @@ function Post({ data }) {
                         </h4>
                     </div>
                     <div className={cx("follow-btn")} onClick={handleFollow}>
-                        {user.is_followed ? (
+                        {auth ? (
+                            <Button outline>Follow</Button>
+                        ) : user.is_followed ? (
                             <Button
                                 outline
                                 className={cx(`${toggleFollowCheck}`)}
@@ -138,6 +149,7 @@ function Post({ data }) {
                     </div>
                 </div>
             </div>
+            <Modal isClose={close} handleClose={handleClose} />
         </div>
     );
 }

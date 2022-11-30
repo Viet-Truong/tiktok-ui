@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
@@ -11,6 +12,7 @@ import Button from "../../../Components/Button";
 import Menu from "../../../Components/Popper/Menu";
 import Image from "../../../Components/Image";
 import Search from "../Search";
+import Modal from "../../../Components/Modal";
 import config from "../../../config";
 import { MENU_ITEMS } from "../../../data/menuItemData";
 import { authLogout } from "../../../redux/authAction";
@@ -31,6 +33,7 @@ function Header() {
     // const currentUser = true;
     const { auth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const [close, setClose] = useState(true);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -66,6 +69,11 @@ function Header() {
             separate: true,
         },
     ];
+
+    // CLOSE MODAL
+    const handleClose = () => {
+        setClose(true);
+    };
 
     return (
         <header className={cx("wrapper")}>
@@ -104,8 +112,10 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text>Upload</Button>
-                            <Button primary to={config.routes.login}>
+                            <Button text onClick={() => setClose(false)}>
+                                Upload
+                            </Button>
+                            <Button primary onClick={() => setClose(false)}>
                                 Log in
                             </Button>
                         </>
@@ -129,6 +139,7 @@ function Header() {
                     </Menu>
                 </div>
             </div>
+            <Modal isClose={close} handleClose={handleClose} />
         </header>
     );
 }
