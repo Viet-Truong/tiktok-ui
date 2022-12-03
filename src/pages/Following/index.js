@@ -6,23 +6,27 @@ import { useSelector } from "react-redux";
 
 import Post from "../../Components/Post";
 import * as postServices from "../../API/postServices";
+import Modal from "../../Components/Modal";
 
 const cx = classNames.bind(styles);
 function Following() {
     const { auth } = useSelector((state) => state.auth);
+    const [close, setClose] = useState(false);
     const [post, setPost] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(2);
 
     useEffect(() => {
-        const getListVideo = async () => {
-            const result = await postServices.getPost({
-                type: "following",
-            });
-            setPost(result);
-        };
+        if (auth) {
+            const getListVideo = async () => {
+                const result = await postServices.getPost({
+                    type: "following",
+                });
+                setPost(result);
+            };
 
-        getListVideo();
+            getListVideo();
+        }
     }, [auth]);
 
     const fetchListVideo = async () => {
@@ -43,9 +47,14 @@ function Following() {
         setPage((prev) => prev + 1);
     };
 
+    // CLOSE MODAL
+    const handleClose = () => {
+        setClose(true);
+    };
+
     return (
         <div className={cx("wrapper")}>
-            {auth && (
+            {auth ? (
                 <InfiniteScroll
                     dataLength={post.length}
                     next={fetchData}
@@ -56,6 +65,8 @@ function Following() {
                         <Post data={item} key={index} />
                     ))}
                 </InfiniteScroll>
+            ) : (
+                <Modal isClose={close} handleClose={handleClose} />
             )}
         </div>
     );

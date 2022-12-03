@@ -86,19 +86,20 @@ function SideBar() {
     };
 
     // FOLLOWED USER
-
     useEffect(() => {
-        const fetchFollow = async () => {
-            const result = await userService.getFollowed({
-                page: pageFollow,
-            });
-            if (result.length === 0) {
-                setIsSeeMore(false);
-            }
-            setFollowedUser((prev) => [...prev, ...result]);
-        };
-        fetchFollow();
-    }, [pageFollow]);
+        if (auth) {
+            const fetchFollow = async () => {
+                const result = await userService.getFollowed({
+                    page: pageFollow,
+                });
+                if (result.length === 0) {
+                    setIsSeeMore(false);
+                }
+                setFollowedUser((prev) => [...prev, ...result]);
+            };
+            fetchFollow();
+        }
+    }, [pageFollow, auth]);
 
     const handleSeeMore = async () => {
         setPageFollow(pageFollow + 1);
@@ -108,7 +109,6 @@ function SideBar() {
     const handleClose = () => {
         setClose(true);
     };
-
     return (
         <aside className={cx("wrapper")}>
             <div className={cx("wrapper-fix")}>

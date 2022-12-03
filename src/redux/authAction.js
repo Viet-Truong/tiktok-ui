@@ -21,7 +21,6 @@ export const authRegister = createAsyncThunk(
 export const authLogin = createAsyncThunk(
     "authLogin",
     async ({ email, password }, { rejectWithValue }) => {
-        console.log(email, password);
         try {
             const auth = await authServices.login({ email, password });
             auth && localStorage.setItem("auth", JSON.stringify(auth));
