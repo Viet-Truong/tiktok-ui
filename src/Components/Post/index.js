@@ -53,6 +53,13 @@ function Post({ data }) {
     const handleClose = () => {
         setClose(true);
     };
+
+    // HANDLE CHECK AUTH TO SHOW MODAL WHEN AUTH IS NULL
+    const handleCheckAuth = () => {
+        if (!auth) {
+            setClose(false);
+        }
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("avatar-img")}>
@@ -81,16 +88,20 @@ function Post({ data }) {
                     </div>
                     <div className={cx("follow-btn")} onClick={handleFollow}>
                         {auth ? (
-                            <Button outline>Follow</Button>
-                        ) : user.is_followed ? (
-                            <Button
-                                outline
-                                className={cx(`${toggleFollowCheck}`)}
-                            >
-                                Following
-                            </Button>
+                            user.is_followed ? (
+                                <Button
+                                    outline
+                                    className={cx(`${toggleFollowCheck}`)}
+                                >
+                                    Following
+                                </Button>
+                            ) : (
+                                <Button outline>Follow</Button>
+                            )
                         ) : (
-                            <Button outline>Follow</Button>
+                            <Button outline onClick={() => setClose(false)}>
+                                Follow
+                            </Button>
                         )}
                     </div>
                 </div>
@@ -105,24 +116,39 @@ function Post({ data }) {
                         </div>
                         <div className={cx("action")}>
                             <div className={cx("heart", "action-item")}>
-                                <div
-                                    className={cx(
-                                        "wrapper-icon",
-                                        `${toggleHeartCheck}`
-                                    )}
-                                    onClick={() => handleLike(content)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faHeart}
-                                        className={cx("icon")}
-                                    />
-                                </div>
+                                {auth ? (
+                                    <div
+                                        className={cx(
+                                            "wrapper-icon",
+                                            `${toggleHeartCheck}`
+                                        )}
+                                        onClick={() => handleLike(content)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faHeart}
+                                            className={cx("icon")}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={cx("wrapper-icon")}
+                                        onClick={() => setClose(false)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faHeart}
+                                            className={cx("icon")}
+                                        />
+                                    </div>
+                                )}
                                 <p className={cx("value")}>
                                     {content.likes_count}
                                 </p>
                             </div>
                             <div className={cx("comment", "action-item")}>
-                                <div className={cx("wrapper-icon")}>
+                                <div
+                                    className={cx("wrapper-icon")}
+                                    onClick={handleCheckAuth}
+                                >
                                     <FontAwesomeIcon
                                         icon={faComment}
                                         className={cx("icon")}
@@ -132,7 +158,11 @@ function Post({ data }) {
                                     {content.comments_count}
                                 </p>
                             </div>
-                            <Menu items={item} className={cx("menu")}>
+                            <Menu
+                                items={item}
+                                className={cx("menu")}
+                                onClick={handleCheckAuth}
+                            >
                                 <div className={cx("share", "action-item")}>
                                     <div className={cx("wrapper-icon")}>
                                         <FontAwesomeIcon
