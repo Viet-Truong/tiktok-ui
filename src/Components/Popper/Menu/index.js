@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 function Menu({
     className,
     children,
+    handleCheckAuth,
     items = [],
     onChange = defaultFN,
     hideOnClick = false,
@@ -33,6 +34,7 @@ function Menu({
                     key={index}
                     data={item}
                     onClick={() => {
+                        handleCheckAuth();
                         // neu nhu co phan tu con thi` click se add data cua children vao history tu` do current nhan dc data la ptu cuoi cua history va` render ra menu_item con
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);
@@ -55,7 +57,7 @@ function Menu({
 
     return (
         <Tippy
-            delay={[0, 500]}
+            delay={[0, 300]}
             offset={[12, 8]}
             hideOnClick={hideOnClick}
             placement="bottom-end"

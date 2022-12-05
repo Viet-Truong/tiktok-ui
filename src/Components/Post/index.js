@@ -161,7 +161,7 @@ function Post({ data }) {
                             <Menu
                                 items={item}
                                 className={cx("menu")}
-                                onClick={handleCheckAuth}
+                                handleCheckAuth={handleCheckAuth}
                             >
                                 <div className={cx("share", "action-item")}>
                                     <div className={cx("wrapper-icon")}>
