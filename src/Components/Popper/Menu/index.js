@@ -34,7 +34,9 @@ function Menu({
                     key={index}
                     data={item}
                     onClick={() => {
-                        handleCheckAuth();
+                        if (handleCheckAuth) {
+                            handleCheckAuth();
+                        }
                         // neu nhu co phan tu con thi` click se add data cua children vao history tu` do current nhan dc data la ptu cuoi cua history va` render ra menu_item con
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);
