@@ -20,6 +20,10 @@ import {
     faCode,
     faLinkSlash,
     faPaperPlane,
+    faUser,
+    faCoins,
+    faGear,
+    faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const MENU_ITEMS = [
@@ -50,6 +54,31 @@ export const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: "Keyboard shortcuts",
+    },
+];
+
+export const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: "View profile",
+        type: "profile",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: "Get coins",
+        to: "/coin",
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: "Settings",
+        to: "/settings",
+    },
+    ...MENU_ITEMS,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: "Log out",
+        type: "logout",
+        separate: true,
     },
 ];
 

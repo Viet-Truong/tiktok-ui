@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 
@@ -14,23 +14,16 @@ import Image from "../../../Components/Image";
 import Search from "../Search";
 import Modal from "../../../Components/Modal";
 import config from "../../../config";
-import { MENU_ITEMS } from "../../../data/menuItemData";
+import { MENU_ITEMS, userMenu } from "../../../data/menuItemData";
 import { authLogout } from "../../../redux/authAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faEllipsisVertical,
-    faUser,
-    faCoins,
-    faGear,
-    faSignOut,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { InboxIcon, MessageIcon, UploadIcon } from "../../../Components/Icons";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    // const currentUser = true;
     const { auth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [close, setClose] = useState(true);
@@ -44,31 +37,6 @@ function Header() {
                 break;
         }
     };
-
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: "View profile",
-            type: "profile",
-        },
-        {
-            icon: <FontAwesomeIcon icon={faCoins} />,
-            title: "Get coins",
-            to: "/coin",
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear} />,
-            title: "Settings",
-            to: "/settings",
-        },
-        ...MENU_ITEMS,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut} />,
-            title: "Log out",
-            type: "logout",
-            separate: true,
-        },
-    ];
 
     // CLOSE MODAL
     const handleClose = () => {
@@ -121,22 +89,21 @@ function Header() {
                         </>
                     )}
                     {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
-                    <Menu
-                        items={auth ? userMenu : MENU_ITEMS}
-                        onChange={handleMenuChange}
-                    >
-                        {auth ? (
+                    {auth ? (
+                        <Menu items={userMenu} onChange={handleMenuChange}>
                             <Image
                                 className={cx("user-avatar")}
                                 src={auth.avatar}
-                                alt="A"
+                                alt="Avatar"
                             />
-                        ) : (
+                        </Menu>
+                    ) : (
+                        <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                             <button className={cx("more-btn")}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
                             </button>
-                        )}
-                    </Menu>
+                        </Menu>
+                    )}
                 </div>
             </div>
             <Modal isClose={close} handleClose={handleClose} />
