@@ -77,6 +77,14 @@ function Header() {
                                     <InboxIcon />
                                 </button>
                             </Tippy>
+                            {/* OnChange dung de bat su kiẹn click vao dung item ma minh click  */}
+                            <Menu items={userMenu} onChange={handleMenuChange}>
+                                <Image
+                                    className={cx("user-avatar")}
+                                    src={auth.avatar}
+                                    alt="Avatar"
+                                />
+                            </Menu>
                         </>
                     ) : (
                         <>
@@ -86,23 +94,18 @@ function Header() {
                             <Button primary onClick={() => setClose(false)}>
                                 Log in
                             </Button>
+                            {/* OnChange dung de bat su kiẹn click vao dung item ma minh click  */}
+                            <Menu
+                                items={MENU_ITEMS}
+                                onChange={handleMenuChange}
+                            >
+                                <button className={cx("more-btn")}>
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                    />
+                                </button>
+                            </Menu>
                         </>
-                    )}
-                    {/* OnChange dung de bat su kiẹn click vao dung item ma minh click */}
-                    {auth ? (
-                        <Menu items={userMenu} onChange={handleMenuChange}>
-                            <Image
-                                className={cx("user-avatar")}
-                                src={auth.avatar}
-                                alt="Avatar"
-                            />
-                        </Menu>
-                    ) : (
-                        <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                            <button className={cx("more-btn")}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
-                        </Menu>
                     )}
                 </div>
             </div>
