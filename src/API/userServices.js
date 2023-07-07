@@ -1,8 +1,8 @@
-import * as request from "../utils/request";
+import * as request from '../utils/request';
 
 export const getSuggested = async ({ page, perPage }) => {
     try {
-        const res = await request.get("users/suggested", {
+        const res = await request.get('users/suggested', {
             params: {
                 page,
                 per_page: perPage,
@@ -16,11 +16,20 @@ export const getSuggested = async ({ page, perPage }) => {
 
 export const getFollowed = async ({ page }) => {
     try {
-        const res = await request.get("me/followings", {
+        const res = await request.get('me/followings', {
             params: {
                 page,
             },
         });
+        return res.data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const getProfile = async (uid) => {
+    try {
+        const res = await request.get(`/users${uid}`);
         return res.data;
     } catch (e) {
         console.log(e);

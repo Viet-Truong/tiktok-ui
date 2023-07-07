@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import classNames from "classnames/bind";
-import { Link } from "react-router-dom";
-import styles from "./Button.module.scss";
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -21,13 +21,15 @@ function Button({
     leftIcon,
     rightIcon,
     onClick,
+    onMouseEnter,
     ...passProps
 }) {
     // mac dinh se la` button
-    let Component = "button";
+    let Component = 'button';
     const props = {
         // mac dinh nut nao` cung se co onClick
         onClick,
+        onMouseEnter,
         // cac props da dang nhu target, ...
         ...passProps,
     };
@@ -37,7 +39,7 @@ function Button({
         // delete props.onClick;
         // cach 2
         Object.keys(props).forEach((key) => {
-            if (key.startsWith("on") && typeof props[key] === "function") {
+            if (key.startsWith('on') && typeof props[key] === 'function') {
                 delete props[key];
             }
         });
@@ -50,9 +52,11 @@ function Button({
     } else if (href) {
         // k phai link noi bo, chuyen huong sang 1 trang khac
         props.href = href;
-        Component = "a";
+        Component = 'a';
+    } else if (onMouseEnter) {
+        Component = 'button';
     }
-    const classes = cx("wrapper", {
+    const classes = cx('wrapper', {
         primary,
         outline,
         text,
@@ -65,9 +69,9 @@ function Button({
     });
     return (
         <Component className={classes} {...props}>
-            {leftIcon && <span className={cx("icon")}>{leftIcon}</span>}
-            <span className={cx("text-btn")}>{children}</span>
-            {rightIcon && <span className={cx("icon")}>{rightIcon}</span>}
+            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+            <span className={cx('text-btn')}>{children}</span>
+            {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
         </Component>
     );
 }

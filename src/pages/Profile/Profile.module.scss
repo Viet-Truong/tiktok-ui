@@ -1,0 +1,72 @@
+.wrapper {
+
+}
+.container {
+
+}
+.header {
+
+}
+.header__info {
+    display: flex;
+}
+.header__info-avatar {
+    border-radius: 90000px;
+    object-fit: cover;
+}
+.header__description {
+    margin-left: 20px;
+}
+.header__description--btn-update {
+    margin-top: 10px;
+    color: black;
+}
+.header__description--btn-update:hover {
+    background-color: rgb(248, 248, 248);
+}
+
+.header__follow {
+    margin-top: 20px;
+}
+
+.header__follow span {
+    margin-right: 5px;
+}
+.header__story {
+    margin: 10px 0;
+}
+.header__content {
+
+    .tab {
+        position: relative;
+        display: flex;
+
+        .btn_tab {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            font-size: 1.8rem;
+            display: flex;
+            margin-right: 15px;
+        }
+
+        .btn_tab svg {
+            margin-right: 8px;
+        }
+    }
+
+    .tab button:hover {
+        text-decoration: none;
+    }
+
+    .line {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 6px;
+        border-radius: 15px;
+        background-color: black;
+        transition: all 0.2s ease;
+    }
+}

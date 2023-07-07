@@ -1,38 +1,41 @@
-import classNames from "classnames/bind";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import classNames from 'classnames/bind';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import styles from "./Header.module.scss";
-import images from "../../../assets/images";
-import Button from "../../../Components/Button";
-import Menu from "../../../Components/Popper/Menu";
-import Image from "../../../Components/Image";
-import Search from "../Search";
-import Modal from "../../../Components/Modal";
-import config from "../../../config";
-import { MENU_ITEMS, userMenu } from "../../../data/menuItemData";
-import { authLogout } from "../../../redux/authAction";
+import styles from './Header.module.scss';
+import images from '../../../assets/images';
+import Button from '../../../Components/Button';
+import Menu from '../../../Components/Popper/Menu';
+import Image from '../../../Components/Image';
+import Search from '../Search';
+import Modal from '../../../Components/Modal';
+import config from '../../../config';
+import { MENU_ITEMS, userMenu } from '../../../data/menuItemData';
+import { authLogout } from '../../../redux/authAction';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
-import { InboxIcon, MessageIcon, UploadIcon } from "../../../Components/Icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { InboxIcon, MessageIcon, UploadIcon } from '../../../Components/Icons';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const { auth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [close, setClose] = useState(true);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
-            case "logout":
+            case 'logout':
                 dispatch(authLogout());
                 break;
+            case 'profile':
+                navigate(`/@${auth.nickname}`);
             default:
                 break;
         }
@@ -44,45 +47,45 @@ function Header() {
     };
 
     return (
-        <header className={cx("wrapper")}>
-            <div className={cx("inner")}>
-                <Link to={config.routes.home} className={cx("logo-link")}>
-                    <img src={images.logo} alt="top top" />
+        <header className={cx('wrapper')}>
+            <div className={cx('inner')}>
+                <Link to={config.routes.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt='top top' />
                 </Link>
 
                 <Search />
 
-                <div className={cx("actions")}>
+                <div className={cx('actions')}>
                     {auth ? (
                         <>
-                            <div className={cx("upload-btn")}>
+                            <div className={cx('upload-btn')}>
                                 <UploadIcon />
                                 <span>Tải lên</span>
                             </div>
                             <Tippy
-                                content="Message"
-                                placement="bottom"
+                                content='Message'
+                                placement='bottom'
                                 delay={[0, 20]}
                             >
-                                <button className={cx("action-btn")}>
+                                <button className={cx('action-btn')}>
                                     <MessageIcon />
                                 </button>
                             </Tippy>
                             <Tippy
-                                content="Inbox"
-                                placement="bottom"
+                                content='Inbox'
+                                placement='bottom'
                                 delay={[0, 20]}
                             >
-                                <button className={cx("action-btn")}>
+                                <button className={cx('action-btn')}>
                                     <InboxIcon />
                                 </button>
                             </Tippy>
                             {/* OnChange dung de bat su kiẹn click vao dung item ma minh click  */}
                             <Menu items={userMenu} onChange={handleMenuChange}>
                                 <Image
-                                    className={cx("user-avatar")}
+                                    className={cx('user-avatar')}
                                     src={auth.avatar}
-                                    alt="Avatar"
+                                    alt='Avatar'
                                 />
                             </Menu>
                         </>
@@ -99,7 +102,7 @@ function Header() {
                                 items={MENU_ITEMS}
                                 onChange={handleMenuChange}
                             >
-                                <button className={cx("more-btn")}>
+                                <button className={cx('more-btn')}>
                                     <FontAwesomeIcon
                                         icon={faEllipsisVertical}
                                     />
