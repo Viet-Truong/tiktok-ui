@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Profile.module.scss';
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faPen } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ import { faLock, faPen } from '@fortawesome/free-solid-svg-icons';
 import Button from './../../Components/Button';
 import Image from '../../Components/Image';
 import * as userServices from '../../API/userServices';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 function Profile() {
@@ -62,7 +63,7 @@ function Profile() {
                             className={cx('header__info-avatar')}
                         />
                         <div className={cx('header__description')}>
-                            <h1>{profile?.nickname}</h1>
+                            <h1>.{profile?.nickname}</h1>
                             <h4>{`${profile?.first_name} ${profile?.last_name}`}</h4>
                             <Button
                                 outline
@@ -122,7 +123,46 @@ function Profile() {
                         </button>
                         <div className={cx('line')} ref={lineRef}></div>
                     </div>
-                    <div className={cx('tab_content')}></div>
+                    <div className={cx('tab_content')}>
+                        {isActive === 'Video' && profile.videos?.length > 0 ? (
+                            <div className={cx('wrapper-video')}>
+                                {profile.videos.map((video) => {
+                                    return (
+                                        <div className={cx('video')}>
+                                            <a
+                                                href={video.file_url}
+                                                target='blank'
+                                            >
+                                                <Image
+                                                    className={cx('thumb')}
+                                                    src={video.thumb_url}
+                                                />
+                                                <div className={cx('des')}>
+                                                    <FontAwesomeIcon
+                                                        icon={faPlay}
+                                                        className={cx(
+                                                            'icon-play'
+                                                        )}
+                                                    />
+                                                    <p
+                                                        className={cx(
+                                                            'liked_count'
+                                                        )}
+                                                    >
+                                                        {video.likes_count}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className={cx('wrapper-video')}>
+                                Trang web hiện tại không hỗ trợ tính năng này!
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

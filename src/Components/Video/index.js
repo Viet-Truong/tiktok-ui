@@ -60,9 +60,6 @@ function Video({ src, time, width }) {
                         playsInline
                         disablePictureInPicture
                     />
-                    {/* <button className={cx("control")} onClick={handleVideo}>
-                        {toggleIcon}
-                    </button> */}
                 </div>
             </div>
         </VisibilitySensor>

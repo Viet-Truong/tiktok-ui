@@ -64,9 +64,40 @@
         left: 0;
         bottom: 0;
         width: 0;
-        height: 6px;
+        height: 2px;
         border-radius: 15px;
         background-color: black;
         transition: all 0.2s ease;
+    }
+
+    .wrapper-video {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .video {
+        margin-right: 15px;
+        position: relative;
+    }
+
+    .thumb {
+        width: 200px;
+        height: 290px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .des {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 15px;
+        left: 10px;
+        color: #fff;
+    }
+
+    .icon-play {
+        margin-right: 8px;
     }
 }
