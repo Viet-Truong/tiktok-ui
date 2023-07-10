@@ -1,21 +1,22 @@
-import PropTypes from "prop-types";
-import classNames from "classnames/bind";
-import styles from "./SuggestedAccounts.module.scss";
-import Tippy from "@tippyjs/react/headless";
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import styles from './SuggestedAccounts.module.scss';
+import Tippy from '@tippyjs/react/headless';
 
-import Image from "./../Image";
-import { Wrapper as PopperWrapper } from "../Popper";
+import Image from './../Image';
+import { Wrapper as PopperWrapper } from '../Popper';
 
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AccountPreview from "./AccountPreview";
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AccountPreview from './AccountPreview';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function AccountItem({ data, preview = false }) {
     const renderPreview = (props) => {
         if (preview) {
             return (
-                <div tabIndex="-1" {...props}>
+                <div tabIndex='-1' {...props}>
                     <PopperWrapper>
                         <AccountPreview data={data} />
                     </PopperWrapper>
@@ -31,26 +32,28 @@ function AccountItem({ data, preview = false }) {
                 delay={[600, 0]}
                 offset={[-20, 0]}
                 render={renderPreview}
-                placement="bottom"
+                placement='bottom'
             >
-                <div className={cx("account-item")}>
+                <div className={cx('account-item')}>
                     <Image
-                        className={cx("avatar")}
+                        className={cx('avatar')}
                         alt={data.nickname}
                         src={data.avatar}
                     />
-                    <div className={cx("item-info")}>
-                        <h4 className={cx("nick-name")}>
-                            <strong>{data.nickname}</strong>
+                    <div className={cx('item-info')}>
+                        <h4 className={cx('nick-name')}>
+                            <Link to={`/@${data.nickname}`}>
+                                <strong>{data.nickname}</strong>
+                            </Link>
                             {data.tick && (
                                 <FontAwesomeIcon
                                     icon={faCheckCircle}
-                                    className={cx("check")}
+                                    className={cx('check')}
                                 />
                             )}
                         </h4>
                         <p
-                            className={cx("name")}
+                            className={cx('name')}
                         >{`${data.first_name} ${data.last_name}`}</p>
                     </div>
                 </div>

@@ -41,3 +41,12 @@
 .label {
     color: #161823bf;
 }
+
+.isFollowed {
+    color: var(--black-color);
+    border-color: var(--black-color);
+
+    &:hover {
+        background-color: var(--white-color);
+    }
+}
