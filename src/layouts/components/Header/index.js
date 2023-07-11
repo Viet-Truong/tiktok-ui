@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,10 +58,13 @@ function Header() {
                 <div className={cx('actions')}>
                     {auth ? (
                         <>
-                            <div className={cx('upload-btn')}>
+                            <Link
+                                className={cx('upload-btn')}
+                                to={config.routes.upload}
+                            >
                                 <UploadIcon />
                                 <span>Tải lên</span>
-                            </div>
+                            </Link>
                             <Tippy
                                 content='Message'
                                 placement='bottom'

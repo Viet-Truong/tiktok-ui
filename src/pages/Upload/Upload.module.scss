@@ -1,0 +1,55 @@
+.wrapper {
+    background-color: rgb(248, 248, 248);
+}
+
+.wrapper-content {
+    background-color: rgb(248, 248, 248);
+    width: 1100px;
+    height: calc(100vh - 60px);
+    margin: 0 auto;
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+
+.upload {
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px;
+    border-radius: 8px;
+    height: 80vh;
+    background-color: #fff;
+    padding: 64px 50px;
+}
+
+.upload-input {
+    display: none;
+}
+
+.upload-icon {
+    color: rgb(175,176,180);
+    width: 40px;
+    height: 29px;
+    margin-top: 20px;
+}
+
+.upload-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed rgba(22, 24, 35, 0.2);
+    height: calc(80vh - 64px*2);
+    transition: all 0.5s;
+}
+
+.upload-description:hover {
+    cursor: pointer;
+    background: rgba(22, 24, 35, 0.03);
+}
+
+.btn-upload {
+    width: 200px;
+    margin: 60px 0;
+}
+
+.mt16 {
+    margin-top: 16px;
+}
