@@ -1,10 +1,7 @@
-import classNames from "classnames/bind";
-import styles from "./Video.module.scss";
-import { useRef, useState, useEffect, memo } from "react";
-import VisibilitySensor from "react-visibility-sensor";
-
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import classNames from 'classnames/bind';
+import styles from './Video.module.scss';
+import { useRef, useState, useEffect, memo } from 'react';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const cx = classNames.bind(styles);
 
@@ -22,8 +19,8 @@ function Video({ src, time, width }) {
         }
     };
 
-    const timeVideo = time < 45 ? "video_short" : "";
-    const widthVideo = width > 900 ? "video_horizontal" : "";
+    const timeVideo = time < 45 ? 'video_short' : '';
+    const widthVideo = width > 900 ? 'video_horizontal' : '';
 
     useEffect(() => {
         videoRef.current.volume = 0.2;
@@ -45,16 +42,16 @@ function Video({ src, time, width }) {
     // );
     return (
         <VisibilitySensor onChange={(isVisible) => setIsVisible(isVisible)}>
-            <div className={cx("wrapper", `${widthVideo}`)}>
-                <div className={cx("wrapper-video")}>
+            <div className={cx('wrapper', `${widthVideo}`)}>
+                <div className={cx('wrapper-video')}>
                     <video
-                        className={cx("video", `${timeVideo}`)}
+                        className={cx('video', `${timeVideo}`)}
                         src={src}
                         ref={videoRef}
                         onClick={handleVideo}
                         controls={true}
                         controlsList={
-                            "nofullscreen nodownload noremoteplayback noplaybackrate"
+                            'nofullscreen nodownload noremoteplayback noplaybackrate'
                         }
                         loop
                         playsInline

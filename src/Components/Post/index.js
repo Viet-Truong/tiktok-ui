@@ -1,25 +1,27 @@
-import PropTypes from "prop-types";
-import classNames from "classnames/bind";
-import styles from "./Post.module.scss";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+import styles from './Post.module.scss';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import Video from "../Video";
-import Image from "../Image";
-import Button from "../Button";
-import Menu from "../Popper/Menu";
-import Modal from "../Modal";
-import handleLikeFunc from "./handleLike";
-import handleFollowFunc from "./handleFollow";
-import { SOCIAL_MENU_ITEMS as item } from "../../data/menuItemData";
+import Video from '../Video';
+import Image from '../Image';
+import Button from '../Button';
+import Menu from '../Popper/Menu';
+import Modal from '../Modal';
+import handleLikeFunc from './handleLike';
+import handleFollowFunc from './handleFollow';
+import { SOCIAL_MENU_ITEMS as item } from '../../data/menuItemData';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faComment,
     faHeart,
     faMusic,
     faShare,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
@@ -28,8 +30,8 @@ function Post({ data }) {
     const { auth } = useSelector((state) => state.auth);
     const [content, setContent] = useState(data);
     const [user, setUser] = useState(content.user);
-    let toggleHeartCheck = content.is_liked ? "active" : "";
-    let toggleFollowCheck = user.isFollowed ? "" : "isFollowed";
+    let toggleHeartCheck = content.is_liked ? 'active' : '';
+    let toggleFollowCheck = user.isFollowed ? '' : 'isFollowed';
 
     useEffect(() => {
         setUser(content.user);
@@ -61,32 +63,34 @@ function Post({ data }) {
         }
     };
     return (
-        <div className={cx("wrapper")}>
-            <div className={cx("avatar-img")}>
+        <div className={cx('wrapper')}>
+            <div className={cx('avatar-img')}>
                 <Image
-                    className={cx("avatar")}
+                    className={cx('avatar')}
                     src={user.avatar}
                     alt={`${user.first_name} ${user.last_name}`}
                 />
             </div>
-            <div className={cx("wrapper-content")}>
-                <div className={cx("title-content")}>
-                    <div className={cx("title")}>
-                        <h3 className={cx("user-name")}>
-                            {user.nickname}
+            <div className={cx('wrapper-content')}>
+                <div className={cx('title-content')}>
+                    <div className={cx('title')}>
+                        <h3 className={cx('user-name')}>
+                            <Link to={`/@${user.nickname}`}>
+                                {user.nickname}
+                            </Link>
                             <span
-                                className={cx("full-name")}
+                                className={cx('full-name')}
                             >{`${user.first_name} ${user.last_name}`}</span>
                         </h3>
-                        <p className={cx("title-post")}>
+                        <p className={cx('title-post')}>
                             {content.description}
                         </p>
-                        <h4 className={cx("music")}>
+                        <h4 className={cx('music')}>
                             <FontAwesomeIcon icon={faMusic} />
-                            <p className={cx("music-title")}>{content.music}</p>
+                            <p className={cx('music-title')}>{content.music}</p>
                         </h4>
                     </div>
-                    <div className={cx("follow-btn")} onClick={handleFollow}>
+                    <div className={cx('follow-btn')} onClick={handleFollow}>
                         {auth ? (
                             user.is_followed ? (
                                 <Button
@@ -105,72 +109,72 @@ function Post({ data }) {
                         )}
                     </div>
                 </div>
-                <div className={cx("content")}>
-                    <div className={cx("video-content")}>
-                        <div className={cx("video")}>
+                <div className={cx('content')}>
+                    <div className={cx('video-content')}>
+                        <div className={cx('video')}>
                             <Video
                                 src={content.file_url}
                                 time={content.meta.playtime_seconds}
                                 width={content.meta.video.resolution_x}
                             />
                         </div>
-                        <div className={cx("action")}>
-                            <div className={cx("heart", "action-item")}>
+                        <div className={cx('action')}>
+                            <div className={cx('heart', 'action-item')}>
                                 {auth ? (
                                     <div
                                         className={cx(
-                                            "wrapper-icon",
+                                            'wrapper-icon',
                                             `${toggleHeartCheck}`
                                         )}
                                         onClick={() => handleLike(content)}
                                     >
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            className={cx("icon")}
+                                            className={cx('icon')}
                                         />
                                     </div>
                                 ) : (
                                     <div
-                                        className={cx("wrapper-icon")}
+                                        className={cx('wrapper-icon')}
                                         onClick={() => setClose(false)}
                                     >
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            className={cx("icon")}
+                                            className={cx('icon')}
                                         />
                                     </div>
                                 )}
-                                <p className={cx("value")}>
+                                <p className={cx('value')}>
                                     {content.likes_count}
                                 </p>
                             </div>
-                            <div className={cx("comment", "action-item")}>
+                            <div className={cx('comment', 'action-item')}>
                                 <div
-                                    className={cx("wrapper-icon")}
+                                    className={cx('wrapper-icon')}
                                     onClick={handleCheckAuth}
                                 >
                                     <FontAwesomeIcon
                                         icon={faComment}
-                                        className={cx("icon")}
+                                        className={cx('icon')}
                                     />
                                 </div>
-                                <p className={cx("value")}>
+                                <p className={cx('value')}>
                                     {content.comments_count}
                                 </p>
                             </div>
                             <Menu
                                 items={item}
-                                className={cx("menu")}
+                                className={cx('menu')}
                                 handleCheckAuth={handleCheckAuth}
                             >
-                                <div className={cx("share", "action-item")}>
-                                    <div className={cx("wrapper-icon")}>
+                                <div className={cx('share', 'action-item')}>
+                                    <div className={cx('wrapper-icon')}>
                                         <FontAwesomeIcon
                                             icon={faShare}
-                                            className={cx("icon")}
+                                            className={cx('icon')}
                                         />
                                     </div>
-                                    <p className={cx("value")}>
+                                    <p className={cx('value')}>
                                         {content.shares_count}
                                     </p>
                                 </div>

@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import styles from './Upload.module.scss';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../Components/Button';
+import * as uploadServices from '../../API/uploadServices';
 
 import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +14,13 @@ function Upload() {
     const [selectedVideo, setSelectedVideo] = useState();
     const [previewVideo, setPreviewVideo] = useState();
     const [playing, setPlaying] = useState(false);
+    const [title, setTitle] = useState();
+    const [thumbnailTime, setThumbnailTime] = useState();
+    const [viewableVideo, setViewableVideo] = useState('public');
+    const [allow, setAllow] = useState([]);
+    const navigate = useNavigate();
     const videoRef = useRef();
+    const formDataRef = useRef(new FormData());
 
     const handleVideo = () => {
         if (playing) {
@@ -24,10 +32,46 @@ function Upload() {
         }
     };
 
+    const handleChange = (event) => {
+        const selectedValue = event.target.value;
+        setViewableVideo(selectedValue);
+    };
+
+    const handleAllowChange = (event) => {
+        const { value, checked } = event.target;
+        if (checked) {
+            setAllow([...allow, value]); // Thêm giá trị vào mảng allow
+        } else {
+            setAllow(allow.filter((item) => item !== value)); // Xóa giá trị khỏi mảng allow
+        }
+    };
+
     const handleVideoChange = (e) => {
         const file = e.target.files[0];
         setSelectedVideo(file);
         setPreviewVideo(URL.createObjectURL(file));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        formDataRef.current.append('description', title);
+        formDataRef.current.append('upload_file', selectedVideo);
+        formDataRef.current.append('thumbnail_time', thumbnailTime);
+        formDataRef.current.append('viewable', viewableVideo);
+        formDataRef.current.append('allows[]', allow);
+
+        const fetch = async () => {
+            const result = await uploadServices.uploadVideo(
+                formDataRef.current
+            );
+            if (result) {
+                navigate('/');
+            } else {
+                alert('Upload failed');
+            }
+        };
+
+        fetch();
     };
     return (
         <div className={cx('wrapper')}>
@@ -105,12 +149,40 @@ function Upload() {
                                                 className={cx(
                                                     'title_video-input'
                                                 )}
+                                                placeholder={
+                                                    'Điền tiêu đề video'
+                                                }
+                                                value={title}
+                                                onChange={(e) =>
+                                                    setTitle(e.target.value)
+                                                }
                                             />
                                         </div>
                                     </div>
                                     <div
                                         className={cx('thumb_video', 'option')}
-                                    ></div>
+                                    >
+                                        <div>
+                                            <h4>Thumbnails</h4>
+                                        </div>
+                                        <div>
+                                            <input
+                                                type='number'
+                                                className={cx(
+                                                    'title_video-input'
+                                                )}
+                                                placeholder={
+                                                    'Điền số giây bạn muốn cap làm thumbnail'
+                                                }
+                                                value={thumbnailTime}
+                                                onChange={(e) =>
+                                                    setThumbnailTime(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    </div>
                                     <div
                                         className={cx(
                                             'select_privacy_video',
@@ -120,11 +192,14 @@ function Upload() {
                                         <div>
                                             <h4>Ai có thể xem video này</h4>
                                         </div>
-                                        <select className={cx('select')}>
-                                            <option value='global'>
+                                        <select
+                                            className={cx('select')}
+                                            onChange={handleChange}
+                                        >
+                                            <option value='public'>
                                                 Công khai
                                             </option>
-                                            <option value='friend'>
+                                            <option value='friends'>
                                                 Bạn bè
                                             </option>
                                             <option value='private'>
@@ -142,16 +217,25 @@ function Upload() {
                                             <div className={cx('checkbox')}>
                                                 <input
                                                     type='checkbox'
-                                                    checked
+                                                    value={'comment'}
+                                                    onChange={handleAllowChange}
                                                 />
                                                 <p>Bình luận</p>
                                             </div>
                                             <div className={cx('checkbox')}>
-                                                <input type='checkbox' />
+                                                <input
+                                                    type='checkbox'
+                                                    value={'duet'}
+                                                    onChange={handleAllowChange}
+                                                />
                                                 <p>Duet</p>
                                             </div>
                                             <div className={cx('checkbox')}>
-                                                <input type='checkbox' />
+                                                <input
+                                                    type='checkbox'
+                                                    value={'stitch'}
+                                                    onChange={handleAllowChange}
+                                                />
                                                 <p>Ghép nối</p>
                                             </div>
                                         </div>
@@ -163,7 +247,9 @@ function Upload() {
                                         >
                                             Huỷ bỏ
                                         </Button>
-                                        <Button primary>Đăng</Button>
+                                        <Button primary onClick={handleSubmit}>
+                                            Đăng
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
